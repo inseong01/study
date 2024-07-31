@@ -1,0 +1,23 @@
+response.end(); // 응답 반환값
+>> 어디에 위치해 있어야 반환이 잘 되나?
+	: if else 문 중복 생략하기 위해서 아래로 몰아놨더니 한 박자 늦은 값을 출력
+
+pm2
+>> 패키지 매니저: 파일 수정하면 자동 갱신"pm2 start main.js --watch"(ctrl+c X)
+	- pm2 logs : 실시간 로그 확인 (ctrl + c = 나가기)
+
+form method="post"
+>> 발신 내용을 숨겨서 전송, 주소창에 드러나지 않음
+
+fs
+>> 함수 중첩되는데?
+	: 콜백지옥 되는 거 아닌 가?
+
+node export
+>> module.exports, require()
+
+링크 이동
+>> 한글 안 됨
+
+path.parse().base
+>> 삽입공격 방지

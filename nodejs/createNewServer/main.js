@@ -3,7 +3,6 @@ var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
 
-const component = require('./components/component');
 const delete_process = require('./components/delete_process');
 const update_process = require('./components/update_process');
 const update = require('./components/update');

@@ -4,6 +4,6 @@
 
 ### ⚛️ React
 
-### 🌀 Redux
+### 🌀 [Redux](./Redux/Redux.md)
 
 ### 🟢⚙️ [Node.js](./nodejs/Nodejs.md)

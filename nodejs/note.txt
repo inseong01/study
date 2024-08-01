@@ -21,3 +21,6 @@ node export
 
 path.parse().base
 >> 삽입공격 방지
+
+이후
+>> web browser 조작, database, framework

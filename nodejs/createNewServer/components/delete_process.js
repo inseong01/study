@@ -14,8 +14,7 @@ function delete_process(request, response) {
   request.on('end', function() {
     post = qs.parse(body);
     id = post.id;
-    const filteredId = path.parse(title).base;
-    console.log('filteredId', filteredId, title);
+    const filteredId = path.parse(id).base;
     fs.unlink(`./data/${filteredId}`, (err) => {
       if (err) throw err;
       console.log(`${filteredId} deleted!`);

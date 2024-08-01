@@ -28,7 +28,7 @@
   : `{Location: ...}` 설정할 때 한글 주소 인식 오류
 
 - 삽입공격 방지  
-  : `path.parse().base`
+  : `path.parse().base`, `sanitize-html API`
 
 </details>
 
@@ -46,7 +46,7 @@
 ### 톺아보기
 
 - [fs 함수 중첩 - 콜백지옥 되는 거 아닌 가?](./md/fsCallbackHell.md)
-- [파일 추출/내보내기 - ES6, Node 차이점](./md/importExportDiff.md)
+- [파일 추출/내보내기 - ESM, CommonJS 차이점](./md/importExportDiff.md)
 - [Method="post" - 어떻게 전송되는 가?](./md/method_post.md)
 - [삽입공격 - 어떻게 막아야 할까?](./md/injectionAtt.md)
 

@@ -42,7 +42,7 @@ input 태그로 데이터를 받을 수 있구나~
   3. #### DOM XSS
      : 서버와의 통신 없이 DOM(Document Object Model)을 통해 발생하는 XSS 공격이다.  
       DOM 기반 XSS는 웹사이트의 코드를 조사하지 않고는 취약점을 발견하기 어렵다.  
-      <img src="./img/storeXSS.png" width="500px">
+      <img src="./img/DOMXSS.png" width="500px">
 
 - ### 공격의 피해
 

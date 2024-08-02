@@ -2,7 +2,9 @@
 
 ## 의문점
 
-![callback01](./img/callback01.png)
+<p align="center">
+  <img src="./img/callback01.png" width="100%">
+</p>
 
 <p align="center" >
 fs가 중첩되는 구조가 자바스크립트 콜백지옥과 유사함을 느낌

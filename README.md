@@ -2,7 +2,7 @@
 
 ### 🟨 JavaScript
 
-### ⚛️ React
+### ⚛️ [React](./React/React.md)
 
 ### 🌀 [Redux](./Redux/Redux.md)
 

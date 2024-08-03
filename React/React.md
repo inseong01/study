@@ -67,8 +67,6 @@
   <details>
   <summary>펼치기</summary>
 
-  - 언제 리덕스를 사용해야 되나?
-
   </details>
 
 ### 톺아보기

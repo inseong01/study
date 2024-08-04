@@ -57,8 +57,46 @@
     : 값을 덮어씌우려면 직접할당, 이전 값을 변경하려면 함수로 prev 스프레드 사용
 
       </details>
-      </li> 
-    <ul>
+      </li>
+
+      <li style="list-style-type: none;"> 
+      <details>
+      <summary>Props</summary>
+
+    - #### props 바로 사용하기
+
+      : 무거운 연산이 있다면 props로 내려오기 전에 실행하기,  
+      만약에 props로 내려온 다음에 연산을 해야한다면 useMemo 적용하기
+
+    - #### 중괄호 : curly Brace = {}
+
+      ```javascript
+      const a = {a:1};
+      { { a: 1 } } = { a }
+      ```
+
+    - #### 포맷팅 도구에 규칙을 위임하자
+
+    - #### spread(...) 주의사항
+
+      : 컴포넌트에 어떤 값이 내려왔는지 모를 수 있다.
+
+    - #### props가 많다면
+
+      : 컴포넌트를 분리해보자
+
+    - #### props로 객체 전체를 내린다면
+
+      : 필요한 값만 컴포넌트에서 받자
+
+      ```javascript
+      function app(props) {} ❌
+      function app({ name, weight }) {} ✅
+      ```
+
+        </details>
+        </li> 
+      <ul>
 
   </details>
 

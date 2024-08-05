@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Add page</title>
+  </head>
+  <body>
+    <h1>Add page</h1>
+    <form
+      method="post"
+      action="/add_process"
+      onsubmit="(e) => e.preventDefault()"
+    >
+      <p>
+        <input
+          type="text"
+          name="id"
+          placeholder="id"
+        />
+      </p>
+      <p>
+        <textarea
+          name="subscription"
+          placeholder="subscription"
+        ></textarea>
+      </p>
+      <p>
+        <input type="submit" />
+      </p>
+    </form>
+    <p>
+      <a href="/">Main Page</a>
+      <a href="/about">About Page</a>
+      <a href="/add">Add Page</a>
+    </p>
+  </body>
+</html>

@@ -6,4 +6,4 @@ const server = http.createServer((req, res) => { // new server
   res.end('Hi');
 })
 
-server.listen(8080);
+server.listen(8000, () => console.log('8000 is opened'));

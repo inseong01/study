@@ -4,6 +4,6 @@
 // }
 // global();
 
-// const uri = 'https://QWE:123@www.naver.com/?id=1';
-// const myURL = new URL(uri);
-// console.log(myURL);
+const uri = '/?id=1';
+const myURL = new URL(uri, 'https://QWE:123@www.naver.com'); // (input[, base])
+console.log(myURL);

@@ -6,10 +6,27 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
+    <link
+      rel="stylesheet"
+      href="/public/style.css"
+    />
     <title>Main</title>
   </head>
   <body>
-    <h1>Hellow</h1>
+    <h1>Hello</h1>
     <p>This is express</p>
+
+    <form
+      action="/about"
+      method="post"
+      onclick="(e) => e.preventDefault()"
+    >
+      <input
+        type="text"
+        name="id"
+      />
+      <input type="submit" />
+    </form>
+    <a href="/multer">Multer</a>
   </body>
 </html>

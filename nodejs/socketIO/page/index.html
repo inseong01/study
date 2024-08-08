@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>socket.io</title>
+  </head>
+  <body>
+    <h1>Chat</h1>
+    <p>This is socekt.io</p>
+
+    <form action="" id="form">
+      <input type="text" id="nick" autocomplete="off" placeholder="별명" />
+      <input type="text" id="input" autocomplete="off" placeholder="메시지" />
+      <input type="submit" />
+      <input type="button" id="toggle-btn" value="연결해제" />
+    </form>
+
+    <ul id="messages"></ul>
+  </body>
+  <!-- socket script src 연결(전역) -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io({
+      timeout: 60000,
+      auth: {
+        serverOffset: 0,
+      },
+    });
+
+    const form = document.querySelector('#form');
+    const input = document.querySelector('#input');
+    const messages = document.querySelector('#messages');
+    const toggle_btn = document.querySelector('#toggle-btn');
+    const nick = document.querySelector('#nick');
+    let hasTyped = false;
+
+    // DOM
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', nick.value, input.value);
+        input.value = '';
+      }
+    });
+    toggle_btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (socket.connected) {
+        socket.disconnect();
+        e.target.value = '연결';
+      } else {
+        socket.connect();
+        e.target.value = '연결해제';
+      }
+    });
+    input.addEventListener('input', (e) => {
+      // 채팅 연동 안 됨
+      // 다른 것이 삭제될 수 있음
+      if (input.value.length === 0) {
+        hasTyped = false;
+        messages.lastChild.remove();
+        return;
+      }
+      if (hasTyped) {
+        return;
+      }
+      socket.emit('typing', nick.value);
+      hasTyped = true;
+    });
+
+    // 소켓 이벤트
+    socket.on('chat message', (nick, msg, serverOffset) => {
+      // serverOffset: result.lastID
+      const item = document.createElement('li');
+      if (nick) {
+        item.textContent = `${nick}: ${msg}`;
+      } else {
+        item.textContent = `${msg}`;
+      }
+      messages.appendChild(item);
+    });
+    socket.on('typing', (nick) => {
+      const item = document.createElement('li');
+      item.textContent = `${nick} is typing`;
+      messages.appendChild(item);
+    });
+    socket.on('online', (id) => {
+      const item = document.createElement('li');
+      item.textContent = `${id} is online`;
+      messages.appendChild(item);
+    });
+    socket.on('offline', (id) => {
+      const item = document.createElement('li');
+      item.textContent = `${id} is offline`;
+      messages.appendChild(item);
+    });
+  </script>
+</html>

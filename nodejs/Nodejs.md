@@ -11,36 +11,36 @@
 ### 학습내용
 
 <ul style="list-style: none">
-  <li>
+  <li line-style="none">
   <details>
   <summary>맛보기 내용</summary>
 
-- 응답 반환 설정  
-  `response.end();`  
-  : if else 문에서 중복 생략하기 위해 아래에 두었더니 한 박자 늦은 값 출력
+  - 응답 반환 설정  
+    `response.end();`  
+    : if else 문에서 중복 생략하기 위해 아래에 두었더니 한 박자 늦은 값 출력
 
-- 패키지매니저 - pm2
+  - 패키지매니저 - pm2
 
-  `pm2 start main.js --watch` : 파일 수정하면 자동 갱신  
-  `pm2 logs` : 실시간 로그 확인 (ctrl + c : 나가기)
+    `pm2 start main.js --watch` : 파일 수정하면 자동 갱신  
+    `pm2 logs` : 실시간 로그 확인 (ctrl + c : 나가기)
 
-- form method="post"  
-  : 발신 내용을 숨겨서 전송, 주소창에 드러나지 않음
+  - form method="post"  
+    : 발신 내용을 숨겨서 전송, 주소창에 드러나지 않음
 
-- node에서 파일 추출/내보내기  
-  : module.exports, require
+  - node에서 파일 추출/내보내기  
+    : module.exports, require
 
-- 링크 이동  
-  : `{Location: ...}` 설정할 때 한글 주소 인식 오류
+  - 링크 이동  
+    : `{Location: ...}` 설정할 때 한글 주소 인식 오류
 
-- 삽입공격 방지  
-   : `path.parse().base`, `sanitize-html API`
-    </details>
-    </li>
+  - 삽입공격 방지  
+    : `path.parse().base`, `sanitize-html API`
+  </details>
+  </li>
 
-    <li>
-    <details>
-    <summary>노드 기본 기능</summary>
+  <li line-style="none">
+  <details>
+  <summary>노드 기본 기능</summary>
 
   - ### 환경변수
 
@@ -100,10 +100,10 @@
     : 다른 언어 가져오기, `호출` 역할
 
     ```javascript
-    const spawn = require("child_process");
-    const process = spawn("python", ["test.py"]);
+    const spawn = require('child_process');
+    const process = spawn('python', ['test.py']);
 
-    process.stdout.on("data", function (data) {
+    process.stdout.on('data', function (data) {
       console.log(data.toString());
     });
     ```
@@ -131,7 +131,7 @@
     - `promise` 사용할 때 `catch` 붙여야 한다.
 
       ```javascript
-      process.on("uncaughtException", (err) => console.error(err));
+      process.on('uncaughtException', (err) => console.error(err));
 
       // 모든 에러 기록하지만 복구 작업 부적합
       ```
@@ -139,7 +139,7 @@
     </details>
     </li>
 
-    <li>
+    <li line-style="none">
     <details>
     <summary>Express</summary>
 
@@ -178,7 +178,7 @@
       ### 4. 미들웨어요청
 
       : 응답 주기 중 접근 권한을 갖는 함수  
-       `use()` = 미들웨어 X, 미들웨어 함수를 결합 O
+      `use()` = 미들웨어 X, 미들웨어 함수를 결합 O
 
       ```javascript
       app.use([path,] (req, res, next) => {});
@@ -200,9 +200,220 @@
       - `writeHead()`, `end()` 사용자제  
         : 편의를 위해 하나로 만든 `send()` 사용 권장
 
-        </details>
-        </li>
-      </ul>
+    </details>
+    </li>
+
+    <li line-style="none">
+    <details>
+    <summary>Express Middleware</summary>
+
+    - ### morgan
+
+      : HTTP 요청에 대한 로그 출력
+
+      - `'dev'` : 개발용  
+        : _status / ms / byte_
+
+      - `'combined'` : 배포용  
+        : _ip / 날짜시간 / 브라우저 ..._
+
+    - ### cookieParser
+
+      : 문자열이 아닌 객체로 쿠키 조작 가능
+
+    - ### body-parser
+
+      : express 내장되어 있음, 설치 X
+
+      - `express.static()`  
+        : 정적파일/폴더 경로 설정, 미들웨어 위치 중요
+
+      - `express.json()`  
+        : json 데이터 파싱
+
+      - `express.urlencoded()`  
+        : form 데이터 파싱, extended = qs: true || querystring
+
+        ```javascript
+        app.use('/public', express.static('public'));
+        app.use(express.json()); // json 데이터
+        app.use(express.urlencoded({ extended: true })); // form 데이터
+
+        /*  body-parser 특징
+            1. 실행 성공 - next() / 실행 실패 - 404, 
+            2. static은 실행 성공하면 next() 호출 X 
+            3. request에서 데이터 바로 꺼내서 사용 가능
+            4. 미들웨어 순서 따라 결과 다를 수 있음
+        */
+        ```
+
+    - ### express-session
+
+      #### 1. 세션 객체 설정
+
+      ```javascript
+      app.use(
+        session({
+          resave: false,
+          saveUninitialized: false,
+          secret: process.env.COOKIE_KEY,
+          cookie: {
+            maxAge: 10000,
+            httpOnly: true,
+            path: '/',
+          },
+          name: 'session-cookie',
+        })
+      );
+
+      /*
+          resave
+          : 요청이 왔을 때 다시 저장 여부
+          saveUnitialized
+          : 세션에 저장할 내역이 없어도 저장 여부
+          secret
+          : 암호화 키
+          cookie
+          : 암호화 된 값으로 표기, 'secret' 옵션 필요
+          name
+          : 세션 이름
+      */
+      ```
+
+      #### 2. 세션 객체 생성
+
+      ```javascript
+      app.get('/', (req, res) => {
+        // 키-값 선언
+        req.session.nameValue = 'first-session-cookie';
+        req.session.idValue = 'first-session-cookie2';
+        ...
+      });
+      ```
+
+    - ### Multer
+
+      : [Multer](https://github.com/expressjs/multer/blob/master/doc/README-ko.md) 파일 업로드 처리
+
+      #### 1. 파일 저장 방법 선언
+
+      ```javascript
+      const multer = require('multer');
+
+      const storage = multer.diskStorage({
+        // 경로지정
+        destination: function (req, file, done) {
+          done(null, __dirname + '/uploads'); // done(실패, 성공)
+        },
+        // 파일 이름지정
+        filename: function (req, file, done) {
+          done(null, file.fieldname + Date.now());
+        },
+      });
+      ```
+
+      #### 2. 라우터에서 파일 업로드
+
+      ```javascript
+      const upload = multer({ storage: storage });
+
+      app.post('/upload', upload.array('image', 3), (req, res, next) => {
+        let content = req.file;
+        // upload.sigle()은 req.file로 접근
+        let contents = req.files;
+        // upload.array() || .fields()은 req.files로 접근
+        res.send(contents);
+      });
+      /*
+          .single(fieldname)
+            - fieldname: 명시된 단수 파일 전달 받음, req.file
+            
+          .array(fieldname[, maxCount: Number])
+            - fieldname: 명시된 복수 파일 전달 받음, req.files
+              maxCount 초과 시 error 출력
+              
+          .fields(fields)
+            - fields: 명시된 여러 파일 전달 받음, req.files
+            예) [{name: 'image', maxCount: 4}, {name: 'video', maxCount: 3} ...]
+          
+        */
+      ```
+
+    - ### .env
+      - `npm i dotenv` : 설치해야 인식
+      - `.env` : 키-값 선언, 세미콜론 생략
+      - `process.env.[지정한 키]` : 환경변수 불러오기
+
+    </details>
+    </li>
+
+    <li>
+    <details>
+    <summary>socket.IO</summary>
+
+    - ## 공식문서
+      [soket.IO](https://socket.io/docs/v4/tutorial/introduction)
+
+    - ### ESM import/export 사용방법
+        - package.json : `"type": "module"` 추가
+        - .js : `.mjs` 파일명 변경
+
+    - ### socket 이벤트
+        - #### 접속
+          ```javascript
+          io.on('connection', (socket) => {});
+          ```
+
+        - #### 발생
+          - 전체 클라이언트에게 전달 
+            ```javascript
+            // emit('이벤트 이름', '전송 데이터')
+            io.emit('chat message', '안녕하세요');
+            ```
+          - 현재 클라이언트 제외 전체 클라이언트에게 전달 
+
+            ```javascript
+            socket.broadcast.emit('chat message', '현재 창에서는 안 보입니다.'); // 윈도우 창 2개로 확인
+            ```
+              
+
+        - #### 처리
+          ```javascript
+          socket.on('chat message', (msg) => {
+            console.log(msg); // msg(전송데이터) 반환
+          });
+          ```
+      
+    - ### 방
+      - 뭔지 잘 모르겠음
+
+        ```javascript
+        /*
+            rooms: Map(2) {
+              '2Bcf__4-4ncIfslsAAAN' => [Set],
+              '0RLBQGi2jtmLOB2qAAAQ' => [Set]
+            },
+            sids: Map(2) {
+              '2Bcf__4-4ncIfslsAAAN' => [Set],
+              '0RLBQGi2jtmLOB2qAAAQ' => [Set]
+            },
+        */
+        ```
+
+    - ### 과제
+      ```
+      ✅  1. Broadcast a message to connected users when someone connects or disconnects. 
+      ✅  2. Add support for nicknames.
+      ❌  3. Don’t send the same message to the user that sent it. Instead, append the message directly as soon as they press enter.
+      ✅  4. Add “{user} is typing” functionality.
+      ✅  5. Show who’s online. 
+      ❌  6. Add private messaging.
+      ❌  7. Share your improvements!
+      ```
+
+    </details>
+    </li>
+  </ul>
 
 <details>
 <summary>의문점</summary>

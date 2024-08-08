@@ -20,7 +20,7 @@ function parseCookies(cookie) { // cookie 값이 2개 이상이어야 ; 붙음
 const server = http.createServer(async (req, res) => { // cookie
   const pathName = req.url;
   const cookie = parseCookies(req.headers.cookie);
-  console.log('cookies', cookies);
+  console.log('cookies', cookie);
 
   if (pathName.startsWith('/login')) {
     const url = new URL(pathName, 'http://localhost:8000/');

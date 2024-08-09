@@ -6,7 +6,9 @@
 
 ### 공부방법
 
-: 인터넷 강의로 입문하고 공식 문서 보기
+: 인터넷 강의로 입문하고 공식 문서 보기   
+
+*" 기본만 배우고 만들고 싶은 거 만들기 "*
 
 ### 학습내용
 
@@ -385,30 +387,70 @@
           ```
       
     - ### 방
-      - 뭔지 잘 모르겠음
+       **Io -> NameSpace -> Room -> Socket**
 
         ```javascript
-        /*
-            rooms: Map(2) {
-              '2Bcf__4-4ncIfslsAAAN' => [Set],
-              '0RLBQGi2jtmLOB2qAAAQ' => [Set]
-            },
-            sids: Map(2) {
-              '2Bcf__4-4ncIfslsAAAN' => [Set],
-              '0RLBQGi2jtmLOB2qAAAQ' => [Set]
-            },
-        */
+        console.log(socket.adapter);
+
+        { 
+          ...,
+          rooms: Map(3) {
+            '사용자1' => Set(1) { '사용자1' },
+            '사용자2' => Set(1) { '사용자2' },
+            '1번방' => Set(1) { '사용자1' }
+          },
+          sids: Map(2) {
+            '사용자1' => Set(1) { '사용자1', '1번방' },
+            '사용자2' => Set(1) { '사용자2' }
+          },
+        }
         ```
+        - ### rooms   
+          : 접속 가능한 방 목록   
+          - `[set]` : 방에 접속되어 있는 소켓ID 배열, `Set(0)`이면 해당 방 사라짐   
+
+          - 기본적으로 접속한 소켓ID가 적혀있음 => 개인 방    
+          
+            **본인이 나가고 아무도 없으면(`Set(0)`) 자신의 방도 사라짐*
+        
+        - ### sids
+          : 소켓ID 목록
+          - `[set]` : 각 ID가 접속되어 있는 방 배열
+
+        - ### `join()`, `leave()`
+          : 방 들어가기(생성) / 나가기    
+
+          **join() 해야 메시지 전달/확인 할 수 있음*
+          ```javascript
+          socket.join(room); // room : String
+          socket.leave(room); 
+          ```
+
+        - ### `to()`
+          : 메시지 전달할 방 지정하기
+
+          **to('room' : String) 문자열로 전달해야 동작*
+          ```javascript
+          // 1번방에 본인 포함 전체에게 전달
+          io.to('1번방').emit('cheat message', 'Hi');
+          
+          // 사용자1에게 전달 (본인 볼 수 없음 : broadcast)
+          socket.broadcast.to('사용자1').emit('cheat message', 'Hi');
+          ```
+
+        - ### 발신 client ID
+          : 클라이언트의 코드가 있는 곳에서 소켓ID 얻음 (현 html 파일)
+       
 
     - ### 과제
       ```
       ✅  1. Broadcast a message to connected users when someone connects or disconnects. 
       ✅  2. Add support for nicknames.
-      ❌  3. Don’t send the same message to the user that sent it. Instead, append the message directly as soon as they press enter.
+      ✅  3. Don’t send the same message to the user that sent it. Instead, append the message directly as soon as they press enter.
       ✅  4. Add “{user} is typing” functionality.
       ✅  5. Show who’s online. 
-      ❌  6. Add private messaging.
-      ❌  7. Share your improvements!
+      ✅  6. Add private messaging.
+      🔃  7. Share your improvements!
       ```
 
     </details>
@@ -444,4 +486,6 @@
 
 ### 예제
 
-[예제 1 - CRUD 구현(리팩토링)](./createNewServer/main.js)
+[예제 1 - CRUD 구현(리팩토링)](./맛보기/main.js)   
+[예제 2 - SocketIO 튜토리얼](./socketIO/app.js)   
+[예제 3 - SocketIO 방 구현](./socketIO/room.js)   

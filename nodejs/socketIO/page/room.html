@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>socket.io</title>
+  </head>
+  <body>
+    <h1>Chat room</h1>
+    <p>This is socekt.io</p>
+
+    <form action="" id="form">
+      <input type="text" id="room" autocomplete="off" placeholder="채팅방" />
+      <input type="text" id="input" autocomplete="off" placeholder="메시지" />
+      <input type="submit" />
+    </form>
+
+    <ul id="messages"></ul>
+    <ul id="messages1">
+      1번 방
+      <input type="button" id="leave1" autocomplete="off" value="떠나기" />
+    </ul>
+    <ul id="messages2">
+      2번 방
+      <input type="button" id="leave2" autocomplete="off" value="떠나기" />
+    </ul>
+    <ul id="personal">
+      개인방
+    </ul>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    console.log(socket);
+
+    const form = document.querySelector('#form');
+    const input = document.querySelector('#input');
+    const messages = document.querySelector('#messages');
+    const room = document.querySelector('#room');
+    const leave1 = document.querySelector('#leave1');
+    const leave2 = document.querySelector('#leave2');
+    const personal = document.querySelector('#personal');
+
+    // DOM
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', room.value, input.value, socket.id);
+        input.value = '';
+      }
+    });
+    leave1.addEventListener('click', (e) => {
+      e.preventDefault();
+      socket.emit('leave', 1);
+    });
+    leave2.addEventListener('click', (e) => {
+      e.preventDefault();
+      socket.emit('leave', 2);
+    });
+
+    // 소켓 이벤트
+    socket.on('chat message', (room, msg, id) => {
+      const item = document.createElement('li');
+      item.textContent = `${msg}`;
+      // messages.appendChild(item);
+      if (room.toString().length === 1) {
+        document.querySelector(`#messages${room}`).appendChild(item);
+      } else if (room.toString().length > 1) {
+        item.textContent = `${id}: ${msg}`;
+        personal.appendChild(item);
+      } else {
+        messages.appendChild(item);
+      }
+    });
+  </script>
+</html>

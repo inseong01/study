@@ -78,6 +78,7 @@
         item.textContent = `${msg}`;
       }
       messages.appendChild(item);
+      socket.auth.serverOffset = serverOffset;
     });
     socket.on('typing', (nick) => {
       const item = document.createElement('li');

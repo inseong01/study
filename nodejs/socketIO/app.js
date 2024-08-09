@@ -8,19 +8,19 @@ import { Server } from 'socket.io';
 import squlite3 from 'sqlite3';
 import { open } from 'sqlite';
 
-// // database
-// const db = await open({
-//   filename: 'chat.db',
-//   driver: squlite3.Database
-// });
-// // table 생성
-// await db.exec(`
-//   CREATE TABLE IF NOT EXISTS messages (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     client_offset TEXT  UNIQUE,
-//     content TEXT
-//   );
-// `);
+// database
+const db = await open({
+  filename: 'chat.db',
+  driver: squlite3.Database
+});
+// table 생성
+await db.exec(`
+  CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_offset TEXT  UNIQUE,
+    content TEXT
+  );
+`);
 
 const app = express();
 const server = createServer(app);
@@ -46,17 +46,16 @@ io.on('connection', async (socket) => {
 
   // 소켓 이벤트
   socket.on('chat message', async (nick, msg) => { // 'chat message' event 실행마다
-    // // db, messages 삽입
-    // let result;
-    // try {
-    //   result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
-    // } catch (err) {
-    //   console.error(err);
-    //   return;
-    // }
-    io.emit('chat message', nick, msg); // emit(key, value)
-    // io.emit('chat message', msg, result.lastID); // emit(key, value)
-    // io.timeout(1000).emit('hi', 'This is an emit from server'); // timeout은 언제 사용?
+    // db, messages 삽입
+    let result;
+    try {
+      result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+    io.emit('chat message', nick, msg, result.lastID); // emit(key, value)
+    // io.timeout(1000).emit('hi', 'This is an emit from server');
     // socket.broadcast.emit('hi', 'This is an emit from server');
   });
 
@@ -75,16 +74,16 @@ io.on('connection', async (socket) => {
       socket.broadcast.emit('hi', 'This is an emit from server');
    */
   // db 불러오기
-  // if (!socket.recovered) {
-  //   try {
-  //     await db.each('SELECT id, content FROM messages WHERE id > ?',
-  //       [socket.handshake.auth.serverOffset || 0],
-  //       (_err, row) => socket.emit('chat message', row.content, row.id)
-  //     )
-  //   } catch (e) {
-  //     console.err(e);
-  //   }
-  // }
+  if (!socket.recovered) {
+    try {
+      await db.each('SELECT id, content FROM messages WHERE id > ?',
+        [socket.handshake.auth.serverOffset || 0],
+        (_err, row) => socket.emit('chat message', row.content, row.id)
+      )
+    } catch (e) {
+      console.err(e);
+    }
+  }
 });
 
 server.listen(3001, () => {

@@ -1,0 +1,15 @@
+.isConnected .status {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.isConnected.offline .status {
+  background-color: red;
+}
+
+.dropdown-menu {
+  --bs-dropdown-min-width: 5.4rem !important;
+}

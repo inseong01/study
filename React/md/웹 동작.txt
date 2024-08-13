@@ -1,0 +1,9 @@
+웹 구성요소 : HTML, HTTP, URL
+
+웹 동작원리: 클라이언트 요청 -> 웹 서버 수신 -> 웹 어플리케이션 서버 처리 -> ( DB 요청/응답 -> ) 웹 어플리케이션 서버 응답 생성 -> 웹 서버 응답 -> 클라이언트 응답 수신/표시
+
+URL 구성: 프로토콜/호스트/포트/패스/쿼리스트링
+
+https://all-young.tistory.com/21
+https://developer.mozilla.org/ko/docs/Learn/Getting_started_with_the_web/How_the_Web_works#%EB%8F%84%EA%B5%AC_%EC%83%81%EC%9E%90%EC%9D%98_%EB%8B%A4%EB%A5%B8_%EB%B6%80%EB%B6%84%EB%93%A4
+반드시 알고 넘어가야 할 웹 기술 기초편

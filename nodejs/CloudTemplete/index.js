@@ -1,7 +1,8 @@
 import express from 'express';
-import path, { dirname } from 'path';
+import path, { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
+import { readFile } from 'fs/promises';
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -14,9 +15,11 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname)));
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   // axios 호출 헤더 설정 값 받아오기
-  res.sendFile(path.join(__dirname, './public/index.html'));
+  const conent = await readFile(resolve('./secretManager.js'));
+  console.log('conent', conent);
+  res.send('hi');
 })
 
 app.listen(3000, () => {

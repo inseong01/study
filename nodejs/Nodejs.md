@@ -489,3 +489,8 @@
 [예제 1 - CRUD 구현(리팩토링)](./맛보기/main.js)   
 [예제 2 - SocketIO 튜토리얼](./socketIO/app.js)   
 [예제 3 - SocketIO 방 구현](./socketIO/room.js)   
+
+### API
+#### 네이버 클라우드 콘솔
+
+  - [네이버 클라우드 콘솔 - 입문 : Secret Manager](./md/NCC_secretManager.md)   

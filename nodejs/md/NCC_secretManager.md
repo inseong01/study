@@ -4,6 +4,13 @@
 `API key`를 숨기고 싶었음.    
 `key` 값이 잘 받아지는지 확인되면 서버를 개설할 계획.
 
+## 학습내용
+  1. Ncloud API 사용 방법
+  2. Ncloud 공식문서
+  3. Ncloud 권한
+  2. Ncloud Sub Account 생성/관리
+  4. Ncloud Secret Manager / APIGateway 사용
+
 ## 참고자료
 
 [1. Secret Manager 개요 - NAVER CLOUD](https://guide.ncloud-docs.com/docs/secretmanager-overview)  
@@ -76,26 +83,26 @@ URL
       
       ``` javascript
       function makeSignature() {
-        let space = " ";    
+        const space = " ";    
         // one space
-        let newLine = "\n";   
+        const newLine = "\n";   
         // new line
-        let method = "GET";   
+        const method = "GET";   
         // method
-        let url = "/photos/puppy.jpg?query1=&query2";	
+        const url = "/photos/puppy.jpg?query1=&query2";	
         // url (include query string) -> 도메인 이후 값
-        let timestamp = `${timestamp}`;			
+        const timestamp = `${timestamp}`;			
         // current timestamp (epoch)
-        let accessKey = `${accessKey}`;			
+        const accessKey = `${accessKey}`;			
         // access key id (from portal or Sub Account)
-        let secretKey = `${secretKey}`;			
+        const secretKey = `${secretKey}`;			
         // secret key (from portal or Sub Account)
-        let message = method + space + url + newLine + timestamp + newLine + accessKey;
+        const message = method + space + url + newLine + timestamp + newLine + accessKey;
 
-        let hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey);
+        const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey);
         hmac.update(message);
 
-        var hash = hmac.finalize();
+        const hash = hmac.finalize();
 
         return hash.toString(CryptoJS.enc.Base64);
       }
@@ -115,7 +122,7 @@ URL
       details: 'Invalid authentication information.'
     }
   }
-  // 시그니처의 uri가 잘못됨, 도메인 이후 값을 삽입
+  // 시그니처의 url이 잘못됨, 도메인 이후 값을 삽입
   // 전) var url = `/secrets/${secretId}/values`;
   // 후) var url = `/api/v1/secrets/${secretId}/values`;
   ```

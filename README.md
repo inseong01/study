@@ -1,6 +1,6 @@
 # 💻 Study
 
-### 🟨 JavaScript
+### 🟨 [JavaScript](./Javascript/Javascript.md)
 
 ### ⚛️ [React](./React/React.md)
 

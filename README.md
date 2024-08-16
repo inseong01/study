@@ -6,4 +6,6 @@
 
 ### 🌀 [Redux](./Redux/Redux.md)
 
-### 🟢⚙️ [Node.js](./nodejs/Nodejs.md)
+### 🟢⚙️ [Node.js](./nodejs/Nodejs.md)    
+
+### 🌐 [Web](./Web/Web.md)

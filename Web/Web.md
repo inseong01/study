@@ -12,13 +12,15 @@
 ✅ 3. IP 주소 기록을 위해 `DB`가 필요한지      
     : 방화벽 차단보다 DB로 처리하는 편이 수월
  
-🔲 4. 프록시, VPN으로 접근하면 어떻게 차단할지
+✅ 4. 프록시, VPN으로 접근하면 어떻게 차단할지      
+    : HTTP 헤더에서 실제 IP 확인 가능, detection API 활용 추천
 ```
 
-서버 구축 기록
+서버 구축 기록장
 ---
 
 [1. 배포할 때 API key 숨기는 방법](./md/API_Key_Hide.md)    
 [2. 내게 필요한 서버 구조 : 네트워크 구조](./md/clientServerArchitecture.md)    
-[3. IP 블랙리스트 관리 : DB 비용 최소화](./md/IPBlacklistManagement.md)
+[3. IP 블랙리스트 관리 : DB 비용 최소화](./md/IPBlacklistManagement.md)     
+[4. Proxy, VPN 차단 방법](./md/IPBlacklistManagement.md)
 

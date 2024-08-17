@@ -30,15 +30,15 @@
 
   - ### 플래그
 
-    : useState 대신 조건식으로 플래그 상태 정의 가능
+    : `useState` 대신 조건식으로 플래그 상태 정의 가능
 
   - ### 불필요한 상태
 
-    : props를 useState가 아닌 const로 선언하는 게 좋을 수 있음
+    : `props`를 `useState`가 아닌 `const`로 선언하는 게 좋을 수 있음
 
   - ### useRef
 
-    : DOM 외의 곳에서도 사용 가능, 리렌더링되지 않는 상태
+    : `DOM` 외의 곳에서도 사용 가능, 리렌더링되지 않는 상태
 
   - ### 상태 단순화
 
@@ -46,7 +46,7 @@
 
   - ### useReducer
 
-    : 상태 구조화 가능, action.type을 왜 상수로 받는 건지.. 에러 확인 용도인가?
+    : 상태 구조화 가능, `action.type`을 왜 상수로 받는 건지.. 에러 확인 용도인가?
 
   - ### custom hooks
 
@@ -54,10 +54,10 @@
 
   - ### update function
 
-    : 값을 덮어씌우려면 직접할당, 이전 값을 변경하려면 함수로 prev 스프레드 사용
+    : 값을 덮어씌우려면 직접할당, 이전 값을 변경하려면 함수로 `prev` 스프레드 사용
 
-      </details>
-      </li>
+    </details>
+    </li>
 
     <li style="list-style-type: none;"> 
     <details>
@@ -65,8 +65,8 @@
 
     - ### props 바로 사용하기
 
-      : 무거운 연산이 있다면 props로 내려오기 전에 실행하기,  
-      만약에 props로 내려온 다음에 연산을 해야한다면 useMemo 적용하기
+      : 무거운 연산이 있다면 `props`로 내려오기 전에 실행하기,  
+      만약에 `props`로 내려온 다음에 연산을 해야한다면 `useMemo` 적용하기
 
     - ### 중괄호 : curly Brace = {}
 
@@ -94,11 +94,12 @@
       function app({ name, weight }) {} ✅
       ```
 
-        </details>
-        </li> 
-        <li style="list-style-type: none;"> 
-        <details>
-        <summary>Component</summary>
+    </details>
+    </li> 
+
+    <li style="list-style-type: none;"> 
+    <details>
+    <summary>Component</summary>
 
       - ### thinking in REACT 읽어보기
 
@@ -106,15 +107,15 @@
 
       - ### fragment 사용 지양하기
 
-        : wrap으로 감싸져 있을 때, string/object/array를 반환할 때
+        : `wrap`으로 감싸져 있을 때, `string/object/array`를 반환할 때
 
       - ### 컴포넌트 네이밍
 
-        : camelCase로 작성
+        : `camelCase`로 작성
 
       - ### 함수 return 지양
 
-        : 반환값을 바로 알기 어렵다, props 전달 등 일반적인 패턴이 아니다.
+        : 반환값을 바로 알기 어렵다, `props` 전달 등 일반적인 패턴이 아니다.
 
       - ### 컴포넌트 내부에 컴포넌트
 
@@ -122,15 +123,34 @@
 
       - ### displayName 설정
 
-        : devTools에서 익명함수 확인가능
+        : `devTools`에서 익명함수 확인가능
 
       - ### 컴포넌트 구성
         : 변수, 상태, 이벤트 등 놓는 순서/위치 본인만의 규칙을 세우자
 
-      </details>
-      </li> 
-      <ul>
+    </details>
+    </li> 
 
+    <li style="list-style-type: none;"> 
+    <details>
+    <summary>Render</summary>
+
+      - ### 공백
+        : `{' '}`으로 빈 공간을 넣을 수 있다.
+
+      - ### JSX 유효값
+        : `0`은 `JSX`에서 렌더림 됨, `Boolean`으로 조건을 넣어야 함
+
+      - ### key
+        : key 값은 리스트 항목 고유화/성능 최적화 중요 요인,  
+        고유값을 넣어야 함. 고유값 라이브러리 사용 필요 `crypto.randomUUID`
+
+      - ### Raw HTML 다루기
+        : `COMPurify`, `eslint-plugin-risxx`사용으로 `XSS` 공격 위험 감소.
+      
+    </details>
+    </li> 
+  <ul>
   </details>
 
 - #### 의문점
@@ -140,6 +160,9 @@
 
   - ### [CROS 뭔가](https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-CORS-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95-%F0%9F%91%8F)
   - ### 클라이언트 알아보기
+    <details>
+    <summary>펼치기</summary>
+
     - 서버   
     : 네트워크 상에서 클라이언트에게 서비스를 제공하는 컴퓨터 시스템
 
@@ -154,6 +177,8 @@
 
     - 웹 클라이언트   
     : 웹 서버로부터 HTTP 요청을 통해 웹 콘텐츠를 요청하고, 그 응답을 받아 사용자에게 표시
+
+    </details>
     
   - ### 웹 데이터 작동방식
 

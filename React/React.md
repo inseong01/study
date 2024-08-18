@@ -150,6 +150,22 @@
       
     </details>
     </li> 
+
+    <li style="list-style-type: none;"> 
+    <details>
+    <summary>Hooks</summary>
+
+      - ### useEffect() 기명함수
+        : 기명함수를 사용하면 어떤 useEffect인지, 어디서 에러가 발생했는지 알 수 있다.
+
+    - ### 하나의 dependency
+        : useEffect()는 한가지 역할만 하도록 분리
+
+    - ### 커스텀훅의 반환 형태
+        : 배열 뿐만 아니라 객체, 변수, 배열로 반환 가능
+      
+    </details>
+    </li> 
   <ul>
   </details>
 

@@ -1,12 +1,61 @@
-import express from 'express';
-import { createServer } from 'node:http';
+// import http from 'http';
 
-const app = express();
-const server = createServer(app);
-const port = 1234;
+import axios from "axios";
+import { parse } from "flatted";
+import HOST from "./SERVER/HOST.js";
 
-app.get('/', (req, res) => {
-  res.send('Hello world');
-})
+// const options = {
+//   hostname: HOST,
+//   port: 3000,
+//   path: '/',
+//   method: 'GET'
+// };
 
-server.listen(port, `0.0.0.0`, () => console.log(`Server is running on port ${port}`))
+// const req = http.request(options, (res) => {
+//   let data = '';
+
+//   res.on('data', (chunk) => {
+//     data += chunk;
+//   });
+
+//   res.on('end', () => {
+//     console.log(data);
+//   });
+// });
+
+// req.on('error', (e) => {
+//   console.error(`Problem with request: ${e.message}`);
+// });
+
+// req.end();
+
+
+// fetch
+// const url = `http://${HOST}:1234/`
+// fetch(url)
+//   .then(res => {
+//     return res.text()
+//   })
+//   .then(res => {
+//     console.log(res)
+//   })
+//   .catch(err => {
+//     console.error('에러', err);
+//   })
+
+// axios
+const config = {
+  proxy: {
+    protocol: 'http',
+    host: HOST,
+    port: 1234,
+  },
+}
+axios.get('/', config)
+  .then(res => {
+    // const data = parse(res.data);
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.error('에러', err);
+  })

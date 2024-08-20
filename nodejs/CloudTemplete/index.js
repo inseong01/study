@@ -1,27 +1,22 @@
 import express from 'express';
-import path, { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
 import cors from 'cors';
-import { readFile } from 'fs/promises';
+import secretManager from './secretManager.js';
 
 const app = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'http://localhost:5000'
 }))
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use(express.static(path.join(__dirname)));
-
 
 app.get('/', async (req, res) => {
   // axios 호출 헤더 설정 값 받아오기
-  const conent = await readFile(resolve('./secretManager.js'));
-  console.log('conent', conent);
-  res.send('hi');
+  let data = await secretManager();
+  // console.log('data1', data);
+  // res.send({ data });
+  console.log('req', req.hostname);
+  res.send('req');
 })
 
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+app.listen(5000, () => {
+  console.log('Server is running on http://localhost:5000');
 });

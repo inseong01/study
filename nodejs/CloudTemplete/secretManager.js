@@ -61,13 +61,13 @@ async function secretManager() {
       headers: headers
     });
     const data = await res.json();
-    console.log('data1', data);
+    // console.log('data1', data);
     return data;
   } catch (e) {
     console.error('secretManager', e);
   }
 }
-secretManager();
+// secretManager();
 
-// export default secretManager;
+export default secretManager;
 

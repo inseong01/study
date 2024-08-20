@@ -23,5 +23,6 @@
 [2. 내게 필요한 서버 구조 : 네트워크 구조](./md/clientServerArchitecture.md)    
 [3. IP 블랙리스트 관리 : DB 비용 최소화](./md/IPBlacklistManagement.md)     
 [4. Proxy, VPN 차단 방법](./md/IPBlacklistManagement.md)        
-[5. 서버 생성 과정 : NAVER CLOUD PLATFORM](./md/create_ncp_server.md)
+[5. 서버 생성 과정 : NAVER CLOUD PLATFORM](./md/create_ncp_server.md)       
+[6. 데이터서버 출력 여정기 ](./md/dataserverJourney.md)     
 

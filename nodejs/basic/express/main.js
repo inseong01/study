@@ -2,11 +2,12 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
+const port = 1000;
 
 // 환경변수, 미들웨어
-app.set('port', 3000);
+app.set('port', port);
 app.use((req, res, next) => {
-  console.log('This is middleware');
+  // console.log('This is middleware');
   next();
 }, (req, res, next) => {
   // throw new Error;
@@ -15,7 +16,8 @@ app.use((req, res, next) => {
 
 // 라우터
 app.get('/', (req, res) => {
-  console.log(path.join(__dirname));
+  console.log('req', req.headers);
+  console.log('res', res.getHeaders());
   res.sendFile(path.join(__dirname, './page/index.html'));
 });
 app.get('/post', (req, res) => {
@@ -23,6 +25,29 @@ app.get('/post', (req, res) => {
 });
 app.get('/delete', (req, res) => {
   res.send('Delete express.');
+});
+app.get('/link', (req, res) => {
+  const host = req.headers.host;
+  const url = `http://223.130.158.46:3000/`
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Custom-Header': host
+    },
+  }
+  fetch(url, options)
+    .then(res => {
+      return res.text()
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.error('에러', err);
+    })
+  res.send(`This is link page`);
 });
 app.use((req, res, next) => {
   res.send('Something is wrong');
@@ -34,7 +59,7 @@ app.use((err, req, res, next) => {
   res.send('Error');
 })
 
-app.listen(app.get('port'), () => console.log('3000 is opened'));
+app.listen(app.get('port'), () => console.log(`http://localhost:${port} is opened`));
 
 // nodemon
 //  프로젝트 파일 변경 감지

@@ -1,0 +1,70 @@
+Typescript
+
+- 장점
+고정적인 변수 유형
+실행 전 오류 알려줌
+점진적 타입 시스템: 자동으로 변수의 타입 추론
+- 단점
+타이핑 양이 많아짐
+
+- 작동원리
+Typescript - AST(추상 문법 트리) - 타입 검사 - JavaScript - AST - 바이트 코드 - 실행
+		ㄴ 실패 - 컴파일 종료
+- js 작동원리
+JavaScript - AST - 바이트 코드 - 실행
+
+* AST란: ???
+
+- 사전준비
+: npm i @types/node typescript -g tsx -g
+tsc 		지정된 폴더 js 파일 변환
+tsc 파일명 js 파일 변환
+tsx 파일명 파일 실행
+
+-tsconfig.json
+컴파일 설정 가능
+{
+	complieOptions: { 
+		target: 'js버전', 
+		module: '파일 불러오는 형식', 
+		outDir: '변환한 파일 저장폴더', 
+		strict: '엄격 검사', 
+		"moduleDetection": "force", // 개별모듈로 취급
+   	
+	 	// @types/node v20 설치 또는 설정해야 오류 안 남
+    		"moduleResolution": "Node",  // undici-types 에러
+    		"skipLibCheck": true // 타입 검사를 생략
+	},
+	includes: {변환할 파일 폴더 위치}
+}
+
+- 기본타입
+let num1: number = 123;
+num1 = 'Hi'; // 오류, 선언한 형과 다르면
+num2.toUpperCase(); // 오류
+
+// 다른 타입인데 null 값 사용하고 싶을 때
+let numA: number = null; // strictNullChecks: false
+
+// literal
+let strA: 'Hi' = 'Hi'; // 값을 형으로 선언
+let bool3: true = false; // 형과 값이 다르면 오류
+
+array 배열 필요할 때
+tuple 고정적인 형태 필요할 때
+
+object 
+let dog: {
+  name: string;
+  color: string;
+} = {
+  name: '돌돌이',
+  color: 'brown',
+};
+// ?, 선택적 항목 있으면 해당 타입, 없으면 없음
+// readonly, 객체 값 변경 안 되도록 오류 발생
+
+타입 별칭-타입 생성 중복 방지
+인덱스 시그니처-규칙적인 프로퍼티 타입 선언
+
+

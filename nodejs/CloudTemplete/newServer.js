@@ -1,7 +1,6 @@
 // import http from 'http';
 
 import axios from "axios";
-import { parse } from "flatted";
 import HOST from "./SERVER/HOST.js";
 
 // const options = {
@@ -28,7 +27,6 @@ import HOST from "./SERVER/HOST.js";
 // });
 
 // req.end();
-
 
 // fetch
 // const url = `http://${HOST}:1234/`

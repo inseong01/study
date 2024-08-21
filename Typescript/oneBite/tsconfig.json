@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "sec2/dist",
+    "strict": true,
+    "moduleDetection": "force", // 개별모듈로 취급
+    "strictNullChecks": true, // 다른 타입에 null 사용, strict 하위 옵션
+
+    // @types/node v20 설치 또는 설정해야 오류 안 남
+    "moduleResolution": "Node",
+    "skipLibCheck": true
+  },
+  "include": ["sec2/src"]
+}

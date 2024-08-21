@@ -24,6 +24,6 @@
 [3. IP 블랙리스트 관리 : DB 비용 최소화](./md/IPBlacklistManagement.md)     
 [4. Proxy, VPN 차단 방법](./md/IPBlacklistManagement.md)        
 [5. 서버 생성 과정 : NAVER CLOUD PLATFORM](./md/create_ncp_server.md)       
-[6. 데이터서버 출력 여정기 1 ](./md/dataserverJourney.md)     
-[7. 데이터서버 출력 여정기 2 ](./md/dataserverJourney.md)     
+[6. 데이터서버 출력 여정기 1 ](./md/dataserverJourney1.md)     
+[7. 데이터서버 출력 여정기 2 ](./md/dataserverJourney2.md)     
 

@@ -11,4 +11,4 @@
 ### <img src="./Typescript/md/img/typescript.png" style="width:35px; display:block "> [TypeScript](./Typescript/Typescript.md)
 
 ## project
-### 🌐 [Web](./Web/Web.md)
+### 🌐 [Web](./Web/Web.md)    

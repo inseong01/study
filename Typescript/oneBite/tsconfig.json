@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "outDir": "sec2/dist",
+    "outDir": "sec3/dist",
     "strict": true,
     "moduleDetection": "force", // 개별모듈로 취급
     "strictNullChecks": true, // 다른 타입에 null 사용, strict 하위 옵션
@@ -11,5 +11,5 @@
     "moduleResolution": "Node",
     "skipLibCheck": true
   },
-  "include": ["sec2/src"]
+  "include": ["sec3/src"]
 }

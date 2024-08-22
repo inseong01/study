@@ -6,7 +6,7 @@
 
 ### <img src="./Redux/md/img/redux.png" style="width:35px; display:block "> [Redux](./Redux/Redux.md)
 
-### <img src="./Nodejs/md/img/nodejs.png" style="width:35px; display:block "> [Node](./Nodejs/Nodejs.md)
+### <img src="./nodejs/md/img/nodejs.png" style="width:35px; display:block "> [Node](./nodejs/Nodejs.md)
 
 ### <img src="./Typescript/md/img/typescript.png" style="width:35px; display:block "> [TypeScript](./Typescript/Typescript.md)
 

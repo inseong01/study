@@ -12,8 +12,8 @@
 
 ### 학습내용
 
-<ul style="list-style: none">
-  <li line-style="none">
+- 정리
+
   <details>
   <summary>맛보기 내용</summary>
 
@@ -38,9 +38,7 @@
   - 삽입공격 방지  
     : `path.parse().base`, `sanitize-html API`
   </details>
-  </li>
 
-  <li line-style="none">
   <details>
   <summary>노드 기본 기능</summary>
 
@@ -137,11 +135,8 @@
 
       // 모든 에러 기록하지만 복구 작업 부적합
       ```
-
     </details>
-    </li>
 
-    <li line-style="none">
     <details>
     <summary>Express</summary>
 
@@ -201,11 +196,8 @@
       - 한번의 요청은 하나의 반응을 반환.
       - `writeHead()`, `end()` 사용자제  
         : 편의를 위해 하나로 만든 `send()` 사용 권장
-
     </details>
-    </li>
 
-    <li line-style="none">
     <details>
     <summary>Express Middleware</summary>
 
@@ -248,7 +240,6 @@
             4. 미들웨어 순서 따라 결과 다를 수 있음
         */
         ```
-
     - ### express-session
 
       #### 1. 세션 객체 설정
@@ -345,11 +336,8 @@
       - `npm i dotenv` : 설치해야 인식
       - `.env` : 키-값 선언, 세미콜론 생략
       - `process.env.[지정한 키]` : 환경변수 불러오기
-
     </details>
-    </li>
 
-    <li>
     <details>
     <summary>socket.IO</summary>
 
@@ -377,7 +365,6 @@
             ```javascript
             socket.broadcast.emit('chat message', '현재 창에서는 안 보입니다.'); // 윈도우 창 2개로 확인
             ```
-              
 
         - #### 처리
           ```javascript
@@ -385,7 +372,7 @@
             console.log(msg); // msg(전송데이터) 반환
           });
           ```
-      
+
     - ### 방
        **Io -> NameSpace -> Room -> Socket**
 
@@ -441,7 +428,6 @@
         - ### 발신 client ID
           : 클라이언트의 코드가 있는 곳에서 소켓ID 얻음 (현 html 파일)
        
-
     - ### 과제
       ```
       ✅  1. Broadcast a message to connected users when someone connects or disconnects. 
@@ -452,30 +438,28 @@
       ✅  6. Add private messaging.
       🔃  7. Share your improvements!
       ```
-
-    </details>
-    </li>
-  </ul>
-
-<details>
-<summary>의문점</summary>
-
-- #### fs 함수 중첩
-
-  : 콜백지옥 되는 거 아닌 가?
-
-- #### 파일 추출/내보내기
-
-  : es6/node `import`, `require` 차이점
-
-- #### 에러처리, status처리는 서로 다른 건가?
-
-  ```
-  에러처리는 매개변수를 4개를 갖는 미들웨어
-  status처리는 path를 가지고 있지 않는 라우터
-  ```
-
 </details>
+    
+- 의문점
+
+  <details>
+  <summary>펼치기</summary>
+
+  - #### fs 함수 중첩
+
+    : 콜백지옥 되는 거 아닌 가?
+
+  - #### 파일 추출/내보내기
+
+    : es6/node `import`, `require` 차이점
+
+  - #### 에러처리, status처리는 서로 다른 건가?
+
+    ```
+    에러처리는 매개변수를 4개를 갖는 미들웨어
+    status처리는 path를 가지고 있지 않는 라우터
+    ```
+  </details>
 
 ### 톺아보기
 

@@ -158,12 +158,68 @@
       - ### useEffect() 기명함수
         : 기명함수를 사용하면 어떤 useEffect인지, 어디서 에러가 발생했는지 알 수 있다.
 
-    - ### 하나의 dependency
-        : useEffect()는 한가지 역할만 하도록 분리
+      - ### 하나의 dependency
+          : useEffect()는 한가지 역할만 하도록 분리
 
-    - ### 커스텀훅의 반환 형태
-        : 배열 뿐만 아니라 객체, 변수, 배열로 반환 가능
+      - ### 커스텀훅의 반환 형태
+          : 배열 뿐만 아니라 객체, 변수, 배열로 반환 가능
       
+    </details>
+    </li> 
+
+    <li style="list-style-type: none;"> 
+    <details>
+    <summary>Ect</summary>
+    
+      - ### import react 
+        : `v17` 이상부터 `React`를 가져오지 않아도 된다.
+
+      - ### 디렉터리 구조
+        : 정답은 없다.    
+        결합도가 높다면 결합도 대로 묶는 것도 방법    
+        ```
+        components    
+        ㄴ TodoList.jsx   
+        ㄴ TodoListItem.jsx   
+        ㄴ TodoListItemButton.jsx   
+        ```
+      - ### SPA
+        : Single Page Application   
+        ```
+        window.location.reload() - 페이지 새로고침    
+        ```
+        `SPA`에서 새로고침은 새롭게 모든 리소스를 다시 가져온다.    
+        로그인 구현을 위해서는 세션 스토리지 추가 활용
+
+      - ### Primitive UI
+        : Semantic HTML, Primitive UI를 준수하자    
+        *`React`에서는 지키기 어렵지만*
+
+    </details>
+    </li> 
+
+    <li style="list-style-type: none;"> 
+    <details>
+    <summary>리액트 생태계</summary>
+
+      - ### 2016
+        : `IE` 대응하기 위해 `jQuery`, `AngularJS` 사용   
+        `React` 관련 국내 자료 전무
+      - ### 2017
+        : 학습 자료가 없고 많은 학습량 때문에 `Angular`보다 `React`로 전환
+      - ### 2018
+        : 다양한 라이브러리 탄생, 프론트엔드 직군 서서히 드러남
+      - ### 2019
+        : `React Hook`, `TypeScript` 도입
+      - ### 2020
+        : `Axios` 도입, 성능최적화 요구, `Next.js`와 컴포넌트 관심 증가
+      - ### 2021
+        : 개발자 호황기, `Svelte`/`Recoil` 도입 시도
+      - ### 2022
+        : 개발자 불황기, `IE` 서비스 종료, `React v18` 배포, `Vercel` 성장, `Vite` 도입
+      - ### 2023
+        : `AI` 등장, `Svelte`에서 `TS` 걷어냄,  `Next.js` 진보한 렌더링 기법: `ISR`(주기), `Streaming SSR`(배포)
+
     </details>
     </li> 
   <ul>

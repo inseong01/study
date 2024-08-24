@@ -1,0 +1,44 @@
+1. 연산 측정방법
+	- 처리시간
+	처리시간 측정은 컴퓨터마다 측정 값 다름, 빠른 연산은 측정 값이 아주 작음
+	- 처리량(연산개수)
+	
+2. Big-0
+알고리즘 분석지표 : 처리속도가 어떤가, 메모리 사용량이 얼마인가, 읽기 쉬운가?
+
+2.1.
+- 시간 복잡도
+입력값에 따라 얼마나 많은 연산을 수행하는지 평가
+	o(1)
+	function addUpToSecond(n) {
+  		return n * (n + 1) / 2;
+	}
+	>> 항상 일정, math.min(n, 5)
+
+	o(n)
+	function addUpToFirst(n) {
+  		var total = 0;
+  		for (var i = 0; i <= n; i++) {
+    			total += i;
+  		}
+  		return total;
+	}
+	>> 1:1 대응, math.max(3, n)
+
+	o(n^2)
+	function printAllPairs(n) {
+  		for (var i = 0; i < n; i++) {
+    			for (var j = 0; j < n; j++) {
+      				console.log(i, j);
+    			}
+  		}
+	}
+	>> 제곱 비례
+
+2.2. 공간복잡도
+입력값에 따라 알고리즘이 실행되는 동안 필요한 메모리 양
+O(1) = Boolean. number, undefined, null
+O(n) = length(string, array, object)
+
+3. 시연
+https://rithmschool.github.io/function-timer-demo/

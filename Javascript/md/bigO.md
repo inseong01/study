@@ -1,5 +1,5 @@
-# 빅오 표기법
-Big O Natation
+# 빅오 표기법 + 객체와 배열 성능평가
+Big O Natation + Object & Array Evaluate
 
 알고리즘 측정방법   
 --
@@ -83,6 +83,26 @@ Big-O 란
 빅오 예제
 --
 [빅오 함수 실험 사이트](https://rithmschool.github.io/function-timer-demo/)
+
+객체와 배열 성능평가
+--
+객체와 배열의 시간복잡도
+### 객체
+```
+Object  { key: 'value' }
+```
+오브젝트 키 `생성` `삭제` `접근` ->> `O(1)`     
+`Object.keys()` 처럼 배열을 생성하는 객체 매서드 ->> `O(n)`
+
+### 배열
+```
+Array   [ "A", "B", "C" ]
+```
+배열 인덱스 접근 ->> `O(1)`   
+배열 앞에 `생성` `삭제` ->> `O(n)` : 배열 인덱스를 전부 수정해야 됨    
+
+배열 관련 매서드는 대부분 `O(n)` // *예외: `push`, `pop`, `sort`*   
+
 
 참고자료
 --

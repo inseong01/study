@@ -1,44 +1,41 @@
-1. 연산 측정방법
-	- 처리시간
-	처리시간 측정은 컴퓨터마다 측정 값 다름, 빠른 연산은 측정 값이 아주 작음
-	- 처리량(연산개수)
+Object
+
+{
+	key: 'value',
+}
+
+오브젝트 키 생성/삭제/접근은 O(1) 
+Object.keys 처럼 배열을 생성하는 객체 매서드는 O(n)
+
+Array
+[
+	"A", "B", "C"
+]
+
+배열 인덱스 접근은 O(1)
+배열 앞에 생성/삭제는 O(n) : 인덱스를 전부 바꿔야 됨
+배열 관련 매서드는 대부분 O(n) - push, pop, sort 제외
+
+문제해결
+1. 문제 이해하기 -  정의
+	본인 방식대로 설명할 수 있나
+	입력/출력값은 어떤 형태인가
+	중요한 부분은 어디인가
+
+2. 구체적 예시
+	간단한 입력값 예시
+	빈값, 유효하지 않은 입력값 예시
 	
-2. Big-0
-알고리즘 분석지표 : 처리속도가 어떤가, 메모리 사용량이 얼마인가, 읽기 쉬운가?
+3. 세분화 - 문제 수행
+	의사코드(계획) 작성: 작업방향성 결정
 
-2.1.
-- 시간 복잡도
-입력값에 따라 얼마나 많은 연산을 수행하는지 평가
-	o(1)
-	function addUpToSecond(n) {
-  		return n * (n + 1) / 2;
-	}
-	>> 항상 일정, math.min(n, 5)
+4. 해결 / 단순화
+	시간이 많이 소요되는 것 해결책 작성
+	다른 부분 해결 후 다시 시도
 
-	o(n)
-	function addUpToFirst(n) {
-  		var total = 0;
-  		for (var i = 0; i <= n; i++) {
-    			total += i;
-  		}
-  		return total;
-	}
-	>> 1:1 대응, math.max(3, n)
+5. 수정하기
+	다른 접근방식 있는지
+	해결책이 직관적인지
+	다른 곳에도 적용할 수 있는지
+	성능을 향상시킬 수 있는지(시간, 공간 복잡도)
 
-	o(n^2)
-	function printAllPairs(n) {
-  		for (var i = 0; i < n; i++) {
-    			for (var j = 0; j < n; j++) {
-      				console.log(i, j);
-    			}
-  		}
-	}
-	>> 제곱 비례
-
-2.2. 공간복잡도
-입력값에 따라 알고리즘이 실행되는 동안 필요한 메모리 양
-O(1) = Boolean. number, undefined, null
-O(n) = length(string, array, object)
-
-3. 시연
-https://rithmschool.github.io/function-timer-demo/

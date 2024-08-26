@@ -685,6 +685,380 @@
   *`super`는 `class` 끼리만 가능*   
 
   </details>
+  
+  <details>
+  <summary>제네릭</summary>
+
+  제네릭 변수   
+  --
+  매개변수, 반환값 타입 자동 추론   
+  *`any` 사용하면 모든 타입이 `any`여서 오류 발생하지 않음*
+  ```TypeScript
+  // 함수명 뒤에 <> 붙임
+  // <> 안의 변수명은 임의 설정, 변수 추가 가능
+
+  function fn<T>(value: T) {
+    // 함수반환(:T) 생략가능
+    return value;
+  }
+
+  let numberFn = fn([1, 2, 3]); // numberFn: number[]
+
+  // <> 안에 매개변수 타입, 반환값 타입 설정 가능
+  let stringFn = fn<string>(123); // Error, 매개변수 타입 오류
+  ```
+
+  제네릭 변수 응용
+  --
+  ### 1. 2가지 이상의 매개변수 타입 설정    
+  `<>` 안에 제네릭 변수 추가 선언
+  ```TypeScript
+  function fn1<T, U>(a: T, b: U) {
+    return [a, b];
+  }
+
+  let firstFn = fn1(1, 'string'); // firstFn: (string | number)[]
+  ```
+
+
+  ### 2. 배열 인덱스 값 타입 추론 방법
+  함수 초기 선언에서 매개변수를 튜플로 선언하고 나머지는 배열 선언    
+  ```TypeScript
+  function fn2<T>(data: [T, ...unknown[]]) {
+    return data[0];
+  }
+
+  let secondFn = fn2(['A', 1, 2, 3]); // secondFn: string
+  ```
+
+  ### 3. 제네릭 타입 변수 확장
+  제네릭 타입 변수에 속성, 매서드 부여
+  ```TypeScript
+  function fn3<T extends { length: number }>(data: T) {
+    return data.length;
+  }
+
+  let thirdFn1 = fn3('string');
+  let thirdFn2 = fn3([1, 2, 3]);
+  let thirdFn3 = fn3(12345); // Error, number 타입에 length 할당 불가
+  ```
+
+  `map`, `forEach` 함수 구현
+  --
+  ### map
+  : 배열/콜백함수 필요, 배열 반환, 형 변환 가능
+  ```TypeScript
+  function map<T, U>(arr: T[], callback: (value: T) => U) {
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+      result.push(callback(arr[i]));
+    }
+    return result;
+  }
+  ```
+  ### forEach
+  : 배열/콜백함수 필요, `undefined` 반환, 형 변환 가능
+  ```TypeScript
+  function forEach<T>(arr: T[], callback: (value: T) => void) {
+    for (let i = 0; i < arr.length; i++) {
+      callback(arr[i]);
+    }
+  }
+  ```
+
+  제네릭 인터페이스
+  --
+  제네릭 변수 선언으로 유연하게 인터페이스 활용 가능
+
+  ```TypeScript
+  interface KeyPair<K, V> {
+    key: K;
+    value: V;
+  }
+
+  let keyPair1: KeyPair<string, number> = {
+    key: 'number',
+    value: 111,
+  };
+  ```
+
+  ### 인덱스 시그니처
+
+  ```TypeScript
+  interface Map<V> {
+    [key: string]: V;
+  }
+
+  let Map1: Map<number> = {
+    key: 123,
+  };
+  let Map2: Map<string> = {
+    key: 'qwer',
+  };
+  ```
+
+  제네릭 타입 별칭
+  --
+  타입 좁히기 없이 간략하게 작성가능    
+  매개변수 대상 설정 가능   
+  
+  ```TypeScript
+  interface Developer {
+    type: 'developer';
+  }
+  interface Student {
+    type: 'student';
+  }
+  interface User<T> {
+    name: string;
+    profile: T;
+  }
+
+  let user1: User<Student> = {
+    name: 'Won',
+    profile: {
+      type: 'student',
+    },
+  };
+  let user2: User<Developer> = {
+    name: 'Ann',
+    profile: {
+      type: 'developer',
+    },
+  };
+
+  function who(user: User<Student>) {
+    console.log(`Hi ${user.name}`);
+  }
+  who(user1);
+  who(user2); // Error, 할당되지 않은 타입
+  ```
+
+  제네릭 클래스
+  --
+  제네릭 변수로 타입 선언 확장성 보장
+  ```TypeScript
+  class List<T> {
+    constructor(private arr: T[]) {}
+  }
+
+  let list1 = new List([1, 2, 3]) // list1<number> 
+  ```
+
+  프로미스와 제네릭
+  --
+  점 표기법을 사용하기 위해 타입 선언   
+  : `함수 반환` 또는 `프로미스 반환` 타입 설정
+  ```TypeScript
+  interface Data {
+    status: number;
+    message: string;
+  }
+
+  function fetchData() {
+    return new Promise((res, rej) => {
+      setTimeout(() => {
+        res({
+          status: 200,
+          message: 'status is ok',
+        });
+      }, 1000);
+    });
+  }
+
+  let data1 = fetchData();
+
+  data1.then((res) => console.log(res.status)); // Error, res is unknown
+  ```
+
+  ### 1) 프로미스 제네릭 변수 선언
+  ```TypeScript
+  function fetchData1() {
+    return new Promise<Data>((res, rej) => { // <Data> 선언
+      setTimeout(() => {
+        res({
+          status: 200,
+          message: 'status is ok',
+        });
+      }, 1000);
+    });
+  }
+  ```
+
+  ### 2) 함수 반환 타입 선언
+  ```TypeScript
+  function fetchData2(): Promise<Data> { // Promise<Data> 선언
+    return new Promise((res, rej) => {
+      setTimeout(() => {
+        res({
+          status: 200,
+          message: 'status is ok',
+        });
+      }, 1000);
+    });
+  }
+
+  ```
+
+  </details>
+
+  <details>
+  <summary>타입 조작하기</summary>
+
+  인덱스 엑세스 타입
+  --
+  1\) 대괄호 표기로 프로퍼티 타입 추출   
+  2\) 대괄호 표기 중첩 가능
+  ### 객체 타입
+  ```TypeScript
+  interface Type {
+    name: string;
+    profile: {
+      id: number;
+      login: boolean;
+    };
+  }
+  
+  type Type1 = Type['profile']['login']; // Type1: boolean
+  ```
+
+  ### 배열 타입
+  ```TypeScript
+  type TypeList = {
+    name: string;
+    profile: {
+      id: number;
+      login: boolean;
+    };
+  }[];
+  
+  type TypeList1 = TypeList[number]['profile']['id']; // TypeList1: number
+  ```
+
+  ### 튜플 타입
+  ```TypeScript
+  type tuple = [number, string, tuple];
+
+  type tuple1 = tuple[0]; // tuple1: number
+  type tuple2 = tuple[1]; // tuple2: string
+  type tuple3 = tuple[number]; // tuple3: number | string | tuple
+  ```
+
+  keyof 연산자
+  --
+  객체 타입의 모든 key 추출   
+  `keyof 타입` / `keyof typeof 변수` 형식으로 사용
+  ```TypeScript
+  interface person {
+    name: string;
+    id: number;
+  }
+
+  function personInfo(person: person, key: keyof person) {
+    // key: name | id
+  }
+  ```
+
+  맵드 타입(Mapped Type)
+  --
+  기존 객체 타입을 새로운 객체 타입 생성  
+  *`type`으로만 생성 가능*
+  ```TypeScript
+  interface Person {
+    id: number;
+    pwd: number;
+  }
+
+  type NewPerson = {
+    [key in keyof Person]?: Person[key];
+    // { id? : number, pwd? : number } -> 선택적 프로퍼티로 변경 
+  };
+  ```
+
+  템플릿 리터럴 타입
+  --
+  템플릿 리터럴을 이용해 특정 패턴을 갖는 `string` 타입
+  ```TypeScript
+  type Color = 'Red' | 'Green' | 'Blue';
+  type Animal = 'Dog' | 'Cat';
+  type ColoredAnimal = `${Color}-${Animal}`; // 6가지 타입 조합
+  ```
+
+  </details>
+
+  <details>
+  <summary>조건부 타입</summary>
+
+  조건부 타입
+  --
+  `extends`와 `삼항연산자` 활용   
+  ```TypeScript
+  interface Pwd {...}
+  interface Id {...}
+  
+  type Info = Id extends Pwd ? number : string;
+  // Id는 Pwd로 확장되지 않음으로 Info는 string이다
+  ```
+  
+  ### 제네릭 사용 (+ 오버로드 활용)
+  반환값 타입 설정 가능
+  ```TypeScript
+  function fn<T>(value: T): T extends string ? string : number;
+
+  function fn(value: any) {
+    if (typeof value === 'string') {
+      return value; // value: string
+    } else {
+      return value; // value: any
+    }
+  }
+  ```
+
+  분산적인 조건부 타입
+  --
+  ```TypeScript
+  type SwitchType1<T> = T extends number ? string : number;
+
+  let a: SwitchType1<string>; // a: number
+  ```
+
+
+  ### 특정타입 제거
+  `T`가 `U`의 서브타입이면 `never`, 아니면 `T`
+  ```TypeScript
+  type SwitchType2<T, U> = T extends U ? never : T;
+
+  let a: SwitchType2<string | number | boolean, string>;
+
+  // 1단계
+  // SwitchType2<string, string> |
+  // SwitchType2<number, string> |
+  // SwitchType2<boolean, string>
+
+  // 2단계
+  // never |
+  // number |
+  // boolean
+  // ->> a: number | boolean
+  ```
+  `never`는 공집합으로 사라짐   
+  
+  *`공집합`: 원소가 하나도 없는 집합*
+
+  특정 타입 추론 문법
+  --
+  `R`은 `T`의 타입을 추론,    
+  `T`가 `R`의 서브타입이면 `R` 아니면 `never`
+  ```TypeScript
+  type Returntype<T> = T extends () => infer R ? R : never;
+  type FunA = () => string;
+
+  let a: Returntype<FunA>; // a: string
+  let b: Returntype<number>; // b: never
+  ```
+
+  </details>
+
 
 - #### 의문점
   ...

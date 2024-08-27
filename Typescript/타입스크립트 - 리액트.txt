@@ -1,0 +1,26 @@
+타입스크립트 - 리액트
+
+- useState()
+	useState("")  초기값 설정으로 타입 초기 설정
+	useState<>() 제네릭 선언으로 형태 타입 설정
+
+- 함수 event 인수
+	: function fn(e: 리액트 호버 팝업 복붙) {}
+	: 선언 타입 다 다름, target-currentTarget 사용 가능하는 경우 다름
+
+- useReducer
+dispatch의 action은 서로소 유니온 타입으로 설정
+
+- 컴포넌트
+	props 받을 때
+	: interface, type으로 props 타입 정의 필요
+
+- 함수
+	인자
+	: 모든 인자에는 타입 필요
+
+뭔 타입이 다 달라
+어지럽네
+다 빨간색이야
+건들기도 쉽지 않아 보이네
+하면 또 뭔가 할만 하고

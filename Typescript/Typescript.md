@@ -1059,6 +1059,121 @@
 
   </details>
 
+  <details>
+  <summary>유틸리티</summary>
+
+  ```TypeScript
+  interface User {
+    id: string;
+    pwd: number;
+    name?: string;
+  }
+  ```
+  유틸리티(1)
+  --
+  `Partial`, `Required`, `Readonly`   
+
+  ### Partial\<T>
+  : 프로퍼티 선택적 타입으로 변경
+  ```TypeScript
+  let user1: Partial<User> = {
+    id: 'qwer',
+  };
+  ```
+  
+  ### Required\<T>    
+  : 프로퍼티 필수 타입으로 변경   
+  ```TypeScript
+  let user2: Required<User> = {
+    id: 'qwer',
+    pwd: 123,
+  }; // Error, name is missing
+  ```
+
+  ### Readonly\<T>
+  : 프로퍼티 수정불가 타입으로 변경
+  ```TypeScript
+  let user3: Readonly<User> = {
+    id: 'qwer',
+    pwd: 123,
+  };
+  user3.id = ''; // Error, id is readonly
+  ```
+
+  유틸리티(2)
+  --
+  `Pick`, `Omit`, `Record`
+  ### Pick\<K, V> 
+  : 객체 프로퍼티 중에서 입력한 프로퍼티만으로 객체 생성
+  ```TypeScript
+  let a: Pick<User, 'id'> = {
+    id: 'qwer',
+  };
+  ```
+
+  *K: key, V: value*    
+  *`V`를 `K`의 키 값으로 확장 ( +범위 제한 )*
+
+  ### Omit\<K, V> 
+  : 객체 프로퍼티 중에서 입력한 프로퍼티만 생략한 객체 생성
+  ```TypeScript
+  let a: Omit<User, 'id'> = {
+    pwd: 123,
+  };
+  ```
+  
+  ### Record\<K, V> 
+  : 객체 프로퍼티 키-값 반복 생성한 객체 타입 생성
+  ```TypeScript
+  type makeType = Record<'user1' | 'user2', { id: string; pwd: number }>;
+  
+  /*
+    {
+      user1: {
+        id: string,
+        pwd: number
+      },
+      user2: {
+        id: string,
+        pwd: number
+      }
+    }
+  */
+  ```
+  
+  유틸리티(3)
+  --
+  `Exclude`, `Extract`, `ReturnType`
+
+  ### Exclude\<T, U>
+  `T`에서 `U` 제외    
+  ```TypeScript
+  type ExcludeType = Exclude<string | boolean, string>;
+  // ExcludeType: boolean
+  ```
+  `T`가 `U`의 서브타입이면 `never` 아니면 `T`   
+
+  ### Extract\<T, U>
+  `T`에서 `U`만 추출    
+  ```TypeScript
+  type ExtractType = Extract<string | number, number>;
+  // ExtractType: number
+  ```
+  `T`가 `U`의 서브타입이면 `T` 아니면 `never`   
+  
+  ### ReturnType\<T, U>
+  함수의 반환값 추출    
+  ```TypeScript
+  function fn() {
+    return 'Hi';
+  }
+  type ReturnTypeType = ReturnType<typeof fn>; 
+  // ReturnTypeType: string
+  ```
+  함수의 `T`가 `U`의 서브타입이면 `T` 아니면 `never`    
+
+  </details>
+
 
 - #### 의문점
   ...

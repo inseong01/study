@@ -5,7 +5,7 @@ interface User {
   pwd: number;
   name?: string;
 }
-// Pick<> : 객체 프로퍼티 중에서 입력한 프로퍼티 값만 선택하여 객체 생성
+// Pick<> : 객체 프로퍼티 중에서 입력한 프로퍼티를 선택하여 객체 생성
 let a: Pick<User, 'id'> = {
   id: 'qwer',
   // 나머지 입력 안해도 오류 X
@@ -16,7 +16,7 @@ type CopyPick<K, V extends keyof K> = {
   [key in V]: K[key];
 };
 
-// Omit<> : 객체 프로퍼티 중에서 입력한 값 생략한 객체 생성
+// Omit<> : 객체 프로퍼티 중에서 입력한 프로퍼티만 생략한 객체 생성
 let b: Omit<User, 'id'> = {
   pwd: 123,
   // 나머지 입력 안해도 오류 X

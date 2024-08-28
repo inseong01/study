@@ -1,34 +1,21 @@
 import { MouseEvent } from 'react';
 import { Todo } from '../Todo';
+import { DispatchExceptNull } from '../App';
 
 interface ListProps {
   list: Todo;
-  todoList: Todo[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-function List({ todoList, setTodoList, list }: ListProps) {
-  console.log(todoList);
-
+function List({ list }: ListProps) {
+  const dispatch = DispatchExceptNull();
   // event 마다 선언 타입 다름
   const onClickInput = (e: MouseEvent<HTMLInputElement>) => {
     switch (e.currentTarget.name) {
       case 'update':
-        {
-          const newArr = todoList.map((value) => {
-            if (value.id === list.id) {
-              value.content = '수정';
-            }
-            return value;
-          });
-          setTodoList(newArr);
-        }
+        dispatch.updateContent(list.id);
         break;
       case 'delete':
-        {
-          const newArr = todoList.filter((value) => value.id !== list.id);
-          setTodoList(newArr);
-        }
+        dispatch.deleteContent(list.id);
         break;
     }
   };

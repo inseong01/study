@@ -1,4 +1,5 @@
-# 리액트 CRUD.tsx
+# 리액트 CRUD
+React CRUD
 
 ## 문제해결
 ### 1. Not assignable to type 'MouseEventHandler<HTMLInputElement>'

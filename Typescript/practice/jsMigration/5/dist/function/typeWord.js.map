@@ -1,0 +1,1 @@
+{"version":3,"file":"typeWord.js","sourceRoot":"","sources":["../../src/function/typeWord.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,mBAAmB,CAAC;AAE1C,MAAM,CAAC,MAAM,QAAQ,GAAG,UAAU,KAAY;IAC5C,MAAM,MAAM,GAAG,KAAK,CAAC,MAA0B,CAAC;IAChD,KAAK,CAAC,OAAO,GAAG,MAAM,CAAC,KAAK,CAAC;AAC/B,CAAC,CAAC"}

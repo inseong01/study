@@ -1178,3 +1178,4 @@
 ### 예제
 [리액트 - CRUD 문제해결](./md/practice1.md)  
 [JS 클래스 - Drag & Drop 문제해결](./md/practice2.md)  
+[JS 함수 - TS 전환 문제해결](./md/practice3.md)  

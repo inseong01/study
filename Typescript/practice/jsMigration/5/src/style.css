@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.main {
+    width: 350px;
+    height: 200px;
+    background-color: aliceblue;
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 50px;
+    box-shadow: 0 0 15px rgba(0, 130, 169, 0.3);
+}
+.player::before {
+    content: '\003C';
+}
+.player::after {
+    content: '\003E';
+}
+.player {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.textEnter {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+input {
+    width: 195px;
+    margin-bottom: 25px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+button {
+    font-weight: bolder;
+    width: 100px;
+    height: 50px;
+    border: none;
+    color: rgb(131, 131, 131);
+    background-color: white;
+    border-radius: 50px;
+    transition: 300ms;
+}
+button:hover {
+    color: rgb(49, 49, 49);
+    background-color: rgb(197, 227, 253);
+}
+#word {
+    display: block;
+    position: absolute;
+    right: 57px;
+}
+.textEnter span:nth-child(1) {
+    position: absolute;
+    right: 200px;
+}

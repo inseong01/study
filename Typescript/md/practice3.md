@@ -6,15 +6,16 @@ JS function -> TS Migration
 ```TypeScript
 const numbers = Array(45).fill(0).map((e, i) => i + 1); // Error, 'e' value is never read.
 ```
-`_` 컴파일 할 때 사용하지 않는 인자로 식별한다. 다음 인자를 사용하고 그 전 인자는 사용하지 않을 때 오류를 방지하기 위해 매개변수 명에 `_`를 선언한다.
+`_` 컴파일 할 때 사용하지 않는 인자로 식별한다. 다음 인자를 사용하고 그 전 인자는 사용하지 않을 때 오류를 방지하기 위해 매개변수명을 `_`로 변경한다.
 
 ### 2. `void` 함수 뒤에는 `Element` 타입을 선언할 수 없다.
 ```TypeScript
-document.querySelector('#num-1').addEventListener('click', onClickNumber) as HTMLButtonElement; // Error, Conversion of type 'void' to type 'HTMLButtonElement' may be a mistake
+document.querySelector('#num-1').addEventListener('click', onClickNumber) as HTMLButtonElement; 
+// Error, Conversion of type 'void' to type 'HTMLButtonElement' may be a mistake
 ```
 `querySelector`를 변수로 선언하고 함수를 추가해서 사용하거나 `querySelector`가 빈 값이 아니란 것을 보장하면 오류 없이 사용할 수 있다.
 
-*`!` 주의사항 - 해당 값이 실제로 `null` `undefined`가 아니어야 한다*
+*`!` 사용 시 주의사항 - 해당 값이 실제로 `null` `undefined`가 아니어야 한다*
 
 ### 3. `parseInt()` `Number()` 차이점
 - `Number()`    
@@ -27,8 +28,7 @@ document.querySelector('#num-1').addEventListener('click', onClickNumber) as HTM
 
   *두번째 인자 기본값, 10진수 아님*
 
-  [Number - mozilla](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Number)    
-  [parseInt - mozilla](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
+  참고자료: [Number - mozilla](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Number), [ParseInt - mozilla](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
 
 ### 4. 구조분해할당은 값 추출이 중점이다.
 ```TypeScript

@@ -44,6 +44,9 @@ Problem & Solving Pattern
 배열이나 문자열에서 중첩된 반복문 또는 `O(n^2)` 복잡도를 피할 수 있다.
 
 ### Multiple Pointers   
+두 개의 포인터로 배열이나 문자열의 특정 위치를 가리킨다. 
+반복문 중첩이나 `0`과 `length` 두 개의 포인터로 구현하는 패턴이다. 
+
 ### Sliding Window    
 ### Divide and Conquer    
 ### Dynamic Programming   

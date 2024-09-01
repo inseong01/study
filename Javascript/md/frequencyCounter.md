@@ -6,7 +6,7 @@ Algorithm Problem : Anagrams - Frequency Counter Pattern
 
 입력값은 소문자만 받는다.
 
-반복문이 중접되지 않고 O(n)으로 동작해야 된다.
+반복문이 중접되지 않고 `O(n)`으로 동작해야 된다.
 
 ### 2. 구체적 예시
 ```

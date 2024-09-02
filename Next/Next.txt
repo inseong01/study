@@ -10,6 +10,73 @@ Next
 	js 파일,  브라우저가 화면으로 렌더링
 	수화를 통해 TTI 상호작용 가능
 	초기렌더링 이후 클라이언트 사이드 렌더링
-	FCP (초기 화면): HTML 받음-> (수화: JS 번들 받음) -> TTI(상호작용: 화면 보임)
+	FCP (초기 화면) 과정: HTML 받음-> 수화(요청한 JS 번들 받음) -> TTI(상호작용: 화면 보임)
 
 *초기 접속: FCP
+*프리패칭: 초기화면 렌더링 이후 지정한 js 파일을 불러오는 기능*
+
+Next 설치
+	npx create-next-app@14 section01
+
+Next 구성 파일
+- Document.tsx
+	페이지 전체 구조 설정: 리액트의 index.html
+- app.tsx	
+	페이지 공통부분: header
+
+App Router
+폴더의 구조 기반으로 페이지 라우팅 제공
+	
+	페이지 생성
+		1. 
+		Pages 폴더
+			ㄴ (메인 페이지) 실행 파일: index.tsx
+			ㄴ (서브 페이지) 실행 파일: "URI 경로명".tsx 
+		2. 
+		Pages 폴더
+			ㄴ (메인 페이지) 실행 파일: index.tsx
+			ㄴ [URI 경로명] 폴더 
+				ㄴ (서브 메인 페이지) 실행 파일: index.tsx
+				ㄴ (서브 페이지) 동적 경로 실행 파일: [id].tsx 
+
+		404 처리
+		1.
+		Pages 폴더
+			ㄴ 파일 생성: 404.tsx
+
+	페이지 이동(네비게이팅)
+	: 클라이언트 사이드 렌더링
+		Link - 지정한 href로 이동 
+		useRouter.push('주소 입력') - 지정한 주소로 이동
+		useRouter.back() - 뒤로가기
+		useRouter.replace() - 뒤로가기 방지하며 이동
+
+	미리불러오기(프리패칭)
+	: 초기화면 렌더링 이후 지정한 js 파일을 불러오는 기능, 빠른 페이지 이동 목적, 빌드 했을 때만 확인가능
+
+		프리패칭 설정
+			- 자동
+			불러온 페이지에 이동 링그는 프리패칭 됨
+			- 사용자 설정
+			useEffect 안에 useRouter().prefetch('주소 입력') 추가
+
+			- 해제
+			<Link ... prefetch={false}></Link> 
+
+	API Routes
+	: api/해당 주소로 이동하면 ts 파일 실행
+
+		api 폴더
+			ㄴ 파일 생성: ~.ts
+	
+	스타일링
+		app.tsx에서만 css 파일 import 가능, 스타일링 겹침 방지
+		다른 파일에서 css 파일 불러올라면 
+			1. ~.module.css 파일명 사용
+			2. import style from './~.module.css'
+			3. className={style.~} 클래스명 부여
+		
+	특정부분 레이아웃
+		1. 특정 레이아웃 파일 생성
+		1. 특정부분이 적용될 컴포넌트 파일에서 컴포넌트 getLayout() 프로퍼티 추가
+		2. app.tsx, getLayout() 함수 인자로 컴포넌트 삽입

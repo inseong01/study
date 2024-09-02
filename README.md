@@ -10,5 +10,7 @@
 
 ### <img src="./Typescript/md/img/typescript.png" style="width:35px; display:block "> [TypeScript](./Typescript/Typescript.md)
 
+### <img src="./Next/md/img/next-js.png" style="width:35px; display:block "> [Next](./Next/Next.md)
+
 ## project
 ### 🌐 [Web](./Web/Web.md)    

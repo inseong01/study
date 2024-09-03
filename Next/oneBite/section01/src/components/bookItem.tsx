@@ -3,16 +3,17 @@ import style from '@/components/bookItem.module.css';
 import { Book } from '@/type/book';
 
 export default function BookItem(children: Book) {
-  const { id, ...rest } = children;
+  const { id, title, subTitle, description, author, publisher, coverImgUrl } = children;
+
   return (
-    <Link href={`/book/${id}`} className={style.container} {...rest}>
-      <img src={rest.coverImgUrl} alt="" />
+    <Link href={`/book/${id}`} className={style.container}>
+      <img src={coverImgUrl} alt="" />
       <div>
-        <div className={style.title}>{rest.title}</div>
-        <div className={style.subTitle}>{rest.subTitle}</div>
+        <div className={style.title}>{title}</div>
+        <div className={style.subTitle}>{subTitle}</div>
         <br />
         <div className={style.author}>
-          {rest.author} | {rest.publisher}
+          {author} | {publisher}
         </div>
       </div>
     </Link>

@@ -109,4 +109,83 @@
       2. 특정부분이 적용될 컴포넌트 파일에서 컴포넌트 getLayout() 프로퍼티 추가
       3. app.tsx, getLayout() 함수 인자로 컴포넌트 삽입
       ```
+
+  ### Next 사전 렌더링
+	페이지마다 렌더링 방식 지정 가능
+
+	#### 1. 서버 사이드 렌더링(SSR)
+  요청 들어올 때마다 사전 렌더링 진행 -  *최신 데이터 유지*   
+  백엔드 서버(요청,반응)가 느리다면 계속 기다려야함 - *빈 화면*
+
+	#### 2. 정적 사이트 생성(SSG) - 기본값(getStaticProps)
+  빌드 타임에 미리 페이지 사전 생성 페이지 생성, 요청 시 렌더링 - *SSR 단점 보완*    
+  최신 데이터 반영 어려움, `meta` 데이터 삽입 힘듦 - *컴포넌트 내 비동기 함수 + useEffect 조합*
+  - `getStaticPaths(){}`    
+  
+    - `paths`   
+      ```TypeScript
+      export const getStaticPaths = () => {
+        return {
+          paths: [ // 해당 경로 html 파일 미리 생성
+            { params: { id: '1' } }, 
+            { params: { id: '2' } }
+          ], 
+        };
+      };
+      ```
+
+    - `fallback`    
+      - false
+      
+        ```TypeScript
+        export const getStaticPaths = () => {
+          return {
+            fallback: false, 
+            // path 외 경로 접근 시 404.tsx 실행
+          };
+        };
+        ```
+        ![](./md/img/fallback_false.png)
+
+      - blocking    
+
+        ```TypeScript
+        export const getStaticPaths = () => {
+          return {
+            fallback: 'blocking',
+            // SSR 방식(빈 화면)
+          };
+        };
+        ```
+        ![](./md/img/fallback_blocking.png)   
+
+      - true    
+
+        ```TypeScript
+        export const getStaticPaths = () => {
+          return {
+            fallback: true,
+            // SSR + 데이터 없는 풀백 상태 페이지 반환
+          };
+        };
+        ```
+
+        ![](./md/img/fallback_true.png)
+
+      *`false` 제외하고 로드되는 페이지는 서버에 저장됨, 다시 접속하면 로딩 X*
+
+	#### 3. 증분 정적 재생성(ISR)
+    `revalidate` 설정으로 지정한 시간 이후 새로고침 시 데이터 갱신
+
+    ```TypeScript
+    export const getStaticProps = async () => {
+      ...
+      return {
+        ...
+        revalidate: 5,
+      };
+    };
+    ```
+    - On-Demand-ISR   
+			: 요청 받을 때마다 `ISR` 작동 설정 가능, `res.revalidate('주소')`
   </details>

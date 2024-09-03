@@ -6,5 +6,4 @@ export interface Book {
   author: string;
   publisher: string;
   coverImgUrl: string;
-  key: number;
 }

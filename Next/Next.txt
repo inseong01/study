@@ -80,3 +80,34 @@ App Router
 		1. 특정 레이아웃 파일 생성
 		1. 특정부분이 적용될 컴포넌트 파일에서 컴포넌트 getLayout() 프로퍼티 추가
 		2. app.tsx, getLayout() 함수 인자로 컴포넌트 삽입
+
+---------------------------------
+
+Next 사전 렌더링
+	페이지마다 렌더링 방식 지정 가능
+
+	1. 서버 사이드 렌더링(SSR)
+		요청 들어올 때마다 사전 렌더링 진행(최신 데이터 유지)
+		백엔드 서버(요청,반응)가 느리다면 계속 기다려야함(빈 화면)
+
+	2. 정적 사이트 생성(SSG) - 기본값(getStaticProps)
+		빌드 타임에 미리 페이지 사전 생성 페이지 생성, 요청 시 렌더링(SSR 단점 보완)
+		최신 데이터 반영 어려움, meta 데이터 삽입 힘듦 - 컴포넌트 내에서 비동기 함수 + useEffect 조합
+
+			getStaticPaths
+				- paths: [{ params: { id: '1' } }], // 해당 경로 html 파일 미리 생성
+				- fallback
+					: false, // path 외 경로 접근 시 404.tsx 실행
+					: 'blocking', // SSR 방식(빈 화면)
+					: true, // SSR + 데이터 없는 풀백 상태 페이지 반환 
+					*false를 제외하고 로드되는 페이지는 서버에 저장됨, 다시 접속하면 로딩X
+
+	3. 증분 정적 재생성(ISR)
+		revalidate 설정으로 지정한 시간 이후 새로고침 시 데이터 갱신
+
+			On-Demand-ISR
+			: 요청 받을 때마다 ISR 작동, res.revalidate(주소)
+
+에러처리 
+	1. 'key' is specified more than once, so this usage will be overwritten.
+	: 컴포넌트 key와 타입 key 충돌, 타입 안에 key 라는 타입이 있다면 오류 발생 

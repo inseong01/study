@@ -1,30 +1,46 @@
-import SearchLayout from '@/components/searchLayout';
-import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
-import style from './index..module.css';
-import books from '@/mock/books.json'; // @: src (json에서 시작위치 설정 가능)
+import SearchLayout from '@/components/searchLayout'; // @: src (json에서 시작위치 설정 가능)
+import style from './index.module.css';
 import BookItem from '@/components/bookItem';
+import fetchBooks from '@/lib/fetch-books';
+import fetchRandomBooks from '@/lib/fetch-randomBooks';
 
-export default function Home() {
-  const router = useRouter();
+import { ReactNode } from 'react';
+import { InferGetStaticPropsType } from 'next';
+import Header from '@/components/head';
 
-  const { query } = router.query;
+// 컴포넌트가 실행되기 전에 먼저 동작, export 선언, 서버에서 실행됨(window 접근불가)
+// export const getServerSideProps = async () => {}
+export const getStaticProps = async () => {
+  const [allBooks, randomBooks] = await Promise.all([fetchBooks(), fetchRandomBooks()]);
 
+  return {
+    props: {
+      allBooks,
+      randomBooks,
+    },
+    revalidate: 5,
+  };
+};
+
+export default function Home({ allBooks, randomBooks }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <div className={style.container}>
-      <section>
-        <h3>지금 추천하는 도서</h3>
-        {books.map((book) => (
-          <BookItem key={book.id} {...book} />
-        ))}
-      </section>
-      <section>
-        <h3>등록된 모든 도서</h3>
-        {books.map((book) => (
-          <BookItem key={book.id} {...book} />
-        ))}
-      </section>
-    </div>
+    <>
+      <Header />
+      <div className={style.container}>
+        <section>
+          <h3>지금 추천하는 도서</h3>
+          {randomBooks.map((book) => (
+            <BookItem key={`추천도서-${book.id}`} {...book} />
+          ))}
+        </section>
+        <section>
+          <h3>등록된 모든 도서</h3>
+          {allBooks.map((book) => (
+            <BookItem key={`모든도서-${book.id}`} {...book} />
+          ))}
+        </section>
+      </div>
+    </>
   );
 }
 

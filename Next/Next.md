@@ -182,7 +182,7 @@
       ...
       return {
         ...
-        revalidate: 5,
+        revalidate: 5,ㅓ
       };
     };
     ```

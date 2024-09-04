@@ -1,0 +1,38 @@
+import BookItem from '../../components/bookItem';
+import style from '@/app/(with-searchbar)/page.module.css';
+
+import { Book } from '@/type/Book';
+
+async function Allbooks() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URI}/book`);
+  const allBooks: Book[] = await response.json();
+
+  if (!allBooks) return <div>해당자료가 없습니다.</div>;
+  return allBooks.map((book) => <BookItem key={book.id} {...book} />);
+}
+async function RandomBooks() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URI}/book/random`, {
+    next: { revalidate: 2 },
+  });
+  const randomBooks: Book[] = await response.json();
+
+  if (!randomBooks) return <div>해당자료가 없습니다.</div>;
+  return randomBooks.map((book) => <BookItem key={book.id} {...book} />);
+}
+
+export default async function Page() {
+  return (
+    <>
+      <div className={style.container}>
+        <section>
+          <h3>지금 추천하는 도서</h3>
+          {RandomBooks()}
+        </section>
+        <section>
+          <h3>등록된 모든 도서</h3>
+          {Allbooks()}
+        </section>
+      </div>
+    </>
+  );
+}

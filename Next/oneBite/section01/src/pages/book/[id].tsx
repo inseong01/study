@@ -3,7 +3,7 @@ import style from './[id].module.css';
 
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import fetchIdBook from '@/lib/fetch-idBook';
-import Header from '@/components/head';
+import Header from '@/components/header';
 
 export const getStaticPaths = () => {
   return {

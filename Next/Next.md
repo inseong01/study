@@ -189,3 +189,86 @@
     - On-Demand-ISR   
 			: 요청 받을 때마다 `ISR` 작동 설정 가능, `res.revalidate('주소')`
   </details>
+
+  <details>
+  <summary>App Router</summary>
+
+  앱 라우터
+  --
+  폴더 구조 기반으로 앱 라우팅 제공   
+  `page`, `layout` 파일명은 페이지로, 그외 파일명은 확장자로 인식
+
+	### 페이지 생성
+  ```
+  app
+  ㄴ page.tsx - '/' 메인 페이지
+  ㄴ search
+      ㄴ page.tsx - '/search' 페이지
+  ```
+	### Page
+  `function Page({params, searchParams}) {}` : 2개 인자로 구성
+
+  *`params`: 동적 라우팅 매개변수 객체 모음*    
+  *`searchParams`: 쿼리스트링 변수 객체 모음*
+
+	### Layout
+  폴더 내 `layout.tsx` 생성, 동일-하위 파일까지 레이아웃 적용됨
+
+    - 특정 컴포넌트만 `layout` 적용 방법    
+  
+      라우트 그룹 폴더 `(소괄호 폴더명)` 생성
+      ```
+      (page-layout) // 라우트 그룹 폴더
+        ㄴ layout.tsx
+        ㄴ page.tsx
+        ㄴ ...
+      ```
+			
+	### Server component     
+  앱 라우터의 기본 컴포넌트는 서버 컴포넌트     
+  *`console.log()` 터미널에서만 보임*    
+
+  - 리액트 기능을 사용하려면    
+    ```
+    컴포넌트 상단 'use client' 선언
+      ㄴ 왜 지정해야 하는지
+        : js 번들 크기 줄임, 클라이언트 컴포넌트만 불러오도록
+    ```
+
+  - `client component` 주의사항   
+    ```
+    1. 서버, 클라이언트(수화과정)에서 각각 실행됨 (2번 실행)
+    
+    2. 서버 컴포넌트 import X 
+        ㄴ 서버가 클라이언트 컴포넌트로 변환됨
+        ㄴ 서버 컴포넌트를 클라이언트에게 Props로 넘기면 서버 컴포넌트 유지됨
+
+    3. 서버 컴포넌트에서 직렬화 되지 않은 Props 전달 불가
+        ㄴ 예: 함수, 파일핸들, 스레드, 네트워크 소켓 전달 불가
+    ```
+	
+	### Navigating
+    `js bundle` : 클라이언트 컴포넌트 전달    
+    `RSC payload` : 서버 컴포넌트 전달
+
+	### Page -> App Router 전환
+	: `page router` 보다 응답 느려짐, 서버 컴포넌트 `fetch` 응답시간 의심    
+
+	### Fetch 캐싱
+	`cache` : 복사한 데이터 값을 임시 저장하는 공간
+	 - `{ cache: 'force-cache' }`   
+	 	: 한 번 `fetch` 된 데이터는 캐시에 저장됨, 갱신되지 않음
+
+	 - `{ cache: 'no-cache' }`    
+	 	: `fetch` 데이터 캐시에 저장되지 않음, 갱신됨
+    
+	- `{ next: { revalidate: 5 } }`   
+	 	: 5초 동안 캐시 유지, `ISR` 유사
+
+	- `{ next: { tag: ['a'] } }`    
+		: 요청 받았을 때까지 캐시유지, `On-Demand-ISR` 유사
+
+	### Request Memoization
+	: 한 페이지에서 `fetch` `URI` 동일한지 자동으로 비교, 중복 fetch가 있다면 하나의 `fetch`만 작동
+
+  </details>

@@ -110,8 +110,6 @@ Page Router
 	1. 'key' is specified more than once, so this usage will be overwritten.
 	: 컴포넌트 key와 타입 key 충돌, 타입 안에 key 라는 타입이 있다면 오류 발생 
 
----------------------------------
-
 App Router
 폴더의 구조 기반으로 앱 라우팅 제공
 page, layout 외 파일명은 ts, js 같은 확장자 형식으로 인식
@@ -156,7 +154,7 @@ page, layout 외 파일명은 ts, js 같은 확장자 형식으로 인식
 		RSC payload: 서버 컴포넌트 전달
 
 	Page -> App Router 전환
-	: 응답 느려짐, 서버 컴포넌트 fetch 응답시간 의심
+	: 응답 느려짐, 서버 컴포넌트 fetch 응답시간 의심, 백엔드 서버 localhost 연결하면 빠름
 
 	fetch 캐싱
 	캐시: 복사한 데이터 값을 임시 저장하는 공간
@@ -171,3 +169,65 @@ page, layout 외 파일명은 ts, js 같은 확장자 형식으로 인식
 
 	Request Memoization
 	: 한 페이지에서 fetch 데이터 동일한지 비교, 중복 fetch가 있다면 하나의 fetch만 작동
+
+---------------------------------
+Caching 
+	풀 라우트 캐시(서버)
+	동적함수가 없고 캐시만 사용하는 정적 페이지
+	빌드 하고나서 풀 라우트 캐시에 페이지를 Next 서버에 저장함, SSG 유사
+
+	*동적함수: 쿠키, 헤더 쿼리스트링*
+	*캐시: fetch() 두번째 인자 설정*
+
+		- 동적 페이지를 정적 페이지로 변환
+		: generateStaticParams()
+		: 동적페이지를 빌드 할 때 정적 페이지 HTML 생성/페이지 방문 시 서버에 저장, getStaticPaths() 유사
+
+		- 강제 동적/정적 페이지 설정
+		: export const dynamic = "";
+		: "auto": 설정 X, "force-dynamic": 동적, "force-static": 정적, "error": 정적페이지 변환 오류 이유
+
+	클라이언트 라우터 캐시(브라우저)
+	: 중복되는 레이아웃 브라우저에 저장(루트 레이아웃), Next 기본 기능 
+
+Streaming
+	: ux 개선, 빠른 렌더링 우선 렌더링, 자동 적용, 동적 페이지여야 함
+
+	페이지 스트리밍
+	: 페이지 자체 로딩 적용
+
+		- loading 생성
+			: loading.tsx 파일 생성
+
+		-	구조
+			app
+				ㄴpage.tsx 
+				ㄴloading.tsx
+
+	컴포넌트 스트리밍
+	: 컴포넌트 별 로딩 적용
+
+		- loading 생성
+			: 로딩 적용할 컴포넌트 <Suspense>로 감싸줌, fallback으로 컴포넌트 넘겨줌
+
+		- 구조
+			<Suspense fallback={<loading />}>
+				<Allbooks />
+			</Suspense>
+
+Error Handling
+	: error.tsx 파일로 에러 처리 가능 (하위 파일까지 적용) 
+	: layout 파일은 error 파일 위치까지 실행
+	```
+	app
+		ㄴ error.tsx
+		ㄴ layout.tsx
+		ㄴ page.tsx
+		ㄴ (search)
+				ㄴ page.tsx
+				ㄴ layout.tsx
+	```
+	메인 페이지에서 search의 layout은 적용되지 않음, search 폴더에 error.tsx 넣으면 layout 적용됨
+
+	React.startTransition()
+	: 우선순위 낮은 작업으로 변환, 내부 비동기 작업은 우선순위에 맞춰 실행됨

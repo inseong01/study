@@ -252,7 +252,7 @@
     `RSC payload` : 서버 컴포넌트 전달
 
 	### Page -> App Router 전환
-	: `page router` 보다 응답 느려짐, 서버 컴포넌트 `fetch` 응답시간 의심    
+	: `page router` 보다 응답 느려짐, 서버 컴포넌트 `fetch` 응답시간 의심, 백엔드 서버 localhost 연결하면 빠름    
 
 	### Fetch 캐싱
 	`cache` : 복사한 데이터 값을 임시 저장하는 공간
@@ -270,5 +270,109 @@
 
 	### Request Memoization
 	: 한 페이지에서 `fetch` `URI` 동일한지 자동으로 비교, 중복 fetch가 있다면 하나의 `fetch`만 작동
+
+  </details>
+
+  <details>
+  <summary>Caching</summary>
+
+  Full Router Cache - 서버
+  --
+  ![](./md/img/fullRouteCache.png)
+  
+  페이지 컴포넌트 내 `동적함수` 없고 `캐시`만 사용하는 정적 페이지   
+	빌드 하고나서 풀 라우트 캐시에 페이지를 저장함, `SSG` 유사
+
+  *`동적함수`: 쿠키, 헤더 쿼리스트링*   
+  *`캐시`: `fetch()` 두번째 인자 설정*
+
+  - ### 동적 페이지를 정적 페이지로 변환    
+    `export function generateStaticParams()`    
+      1. 동적페이지를 빌드 할 때 정적 페이지 `HTML` 파일 생성
+      2. 페이지 방문 시 서버에 저장, `getStaticPaths()` 유사   
+
+          ![](./md/img/generateStaticParams1.png)
+          ![](./md/img/generateStaticParams2.png)
+          (재)실행 할 때 페이지 로드 시간 줄일 수 있음 
+
+
+  - ### 강제 동적/정적 페이지 설정
+    `export const dynamic = "auto";`    
+      - `"auto"`: 페이지 설정 X, 기본값     
+      - `"force-dynamic"`: 동적 페이지 적용
+      - `"force-static"`: 정적 페이지 적용
+      - `"error"`: 정적 페이지로 변환 오류 이유 알림
+
+  Client Router Cache - 브라우저    
+  --
+	중복되는 레이아웃을 브라우저에 저장   
+  `Next` 기본 기능    
+
+  </details>
+
+  <details>
+  <summary>Streaming</summary>
+
+  스트리밍
+  --
+	`ux` 개선, 빠른 렌더링 우선 렌더링, 동적 페이지여야 자동 적용   
+  스켈레톤 UI 적용 유용
+
+	### 페이지 스트리밍
+	페이지 자체 로딩 적용
+  ```
+  1. loading 생성 방법
+    : 폴더 내 loading.tsx 파일 생성
+
+  2. 폴더 구조 예시
+    app
+      ㄴpage.tsx 
+      ㄴloading.tsx
+  ```
+
+	### 컴포넌트 스트리밍
+	컴포넌트 마다 로딩 적용, `<Suspense>` 필요
+  ```
+  1. loading 생성 방법
+    : 로딩 적용할 컴포넌트 <Suspense>로 감싸줌, fallback으로 로딩 컴포넌트 넘겨줌
+
+  2. 컴포넌트 구조 예시
+    <Suspense fallback={<loading />}>
+      <Allbooks />
+    </Suspense>
+  ```
+  
+  </details>
+
+  <details>
+  <summary>Error Handling</summary>
+
+  에러 처리
+  --
+	`error.tsx` 파일로 에러 처리 가능 (하위 파일까지 적용됨)     
+	`layout` 파일은 `error` 파일 위치까지 실행됨    
+	```
+	app
+      ㄴ error.tsx
+      ㄴ layout.tsx
+      ㄴ (search)
+          ㄴ page.tsx
+          ㄴ layout.tsx
+          (ㄴ error.tsx) // 추가해야 search layout 적용됨
+	```
+	`page`에서 `search`의 `layout`은 적용되지 않음, `search` 폴더에 `error.tsx` 넣으면 `layout` 적용됨
+
+	### `React.startTransition()`
+	우선순위 낮은 작업으로 변환 함수,     
+  함수 내부 비동기 작업도 우선순위에 맞춰 실행됨
+
+  ```javascript
+  () => {
+    startTransition(() => {
+      router.refresh(); // Next 서버 데이터 재요청
+      reset(); // 리렌더링
+    });
+  }
+  ```
 
   </details>

@@ -1,11 +1,9 @@
 import BookItem from '../../components/bookItem';
 import style from '@/app/(with-searchbar)/page.module.css';
-import LoadingSkeleton from '@/components/loading-skeleton';
 
-import { Book } from '@/type/Book';
+import { Book } from '@/type/type';
 import { Suspense } from 'react';
 import delay from '../lib/delay';
-import Skeleton from 'react-loading-skeleton';
 import CreateComponent from '@/components/createComponent';
 
 async function Allbooks() {

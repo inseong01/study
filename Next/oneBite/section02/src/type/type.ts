@@ -7,3 +7,11 @@ export interface Book {
   publisher: string;
   coverImgUrl: string;
 }
+
+export interface Review {
+  id: number;
+  content: string;
+  author: string;
+  createdAt: string;
+  bookId: number;
+}

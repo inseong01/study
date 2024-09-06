@@ -363,17 +363,120 @@
 	```
 	`search`의 레이아웃은 적용되지 않음, `search` 폴더에 `error.tsx` 넣으면 `search` 레이아웃 적용됨
 
+  유용한 리액트 훅
+  --
 	### `React.startTransition()`
 	특정 작업을 낮은 우선순위로 변환하는 함수,     
-  함수 내부 비동기 작업도 우선순위에 맞춰 실행됨
+  함수 내부 비동기 작업도 우선순위에 맞춰 실행됨 - 비동기 작업 우선순위 조정 용이
 
   ```javascript
   () => {
     startTransition(() => {
       router.refresh(); // 1. Next 서버 데이터 재요청
       reset(); // 2. 리렌더링
-    });
+    }); 
   }
+  // 1 -> 2 순서대로 동작
+  // 훅 없으면 2 -> 1, 데이터 업데이트 안 됨
   ```
 
   </details>
+  <details>
+  <summary>Server Action</summary>
+
+  `"use server"`    
+  --
+	클라이언트가 아닌 서버에서 동작하도록 선언, `"use client"` 기능 유사
+	
+	```TypeScript
+	async function createReview(formData: FormData) {
+		'use server'; // 서버에서 작동
+	}
+	```
+	```TypeScript
+	export function BookReviewForm() {
+		return (
+			<form action={createReview}>
+			... // form 제출 데이터 서버(createReview)로 전달
+			</form>
+		);
+	}
+	```
+
+  Incremental Static Regeneration
+  --
+  증분 정적 재생   
+  페이지 재검사, 데이터 갱신, 풀 라우트 캐시 `purge`- 초기화
+
+  ### `revalidatePath()`
+  지정한 주소로 재검사, 전체 캐시 지워지고 새로운 데이터 가져옴   
+    - `router.refresh()` 차이점   
+			: `server`가 아닌 `client-api`, 캐시 무효화 X, 데이터 갱신 X
+  
+  ```TypeScript
+  revalidatePath(`/book/${bookId}`);
+  ```
+
+	### `revalidateTag()`
+  `fetch` 인자 선언, 개별 지정 가능, 태그 실행 시 해당 캐시 재검사
+
+  ```TypeScript
+  const response = await fetch(..., {
+    next: { tags: [`review-${bookId}`] },
+  });
+  
+  revalidateTag(`review-${bookId}`); // response 실행되면 Tag 실행
+  ```
+
+  유용한 리액트 훅
+  --
+  ###	`React.useActionState()`
+  *2024년 v19 적용*   
+
+	`Form` 액션 결과 상태 추적 함수 - 연속 제출 방지, 에러 처리 용이    
+	```TypeScript
+	const [state, formAction, isPending] = useActionState(createReview, null);
+	```
+	`state`: 폼 액션 함수 반환 값 >> `object`   
+	`formAction`: 폼 액션 자체 함수 >> `function`    
+	`isPending`: 폼 액션 실행 여부 >> `boolean`   
+
+
+  </details>
+
+## 에러해결
+### 1. 'key' is specified more than once, so this usage will be overwritten.
+`컴포넌트 key`와 `타입 key` 충돌, 타입 안에 `key` 라는 `타입명`이 있다면 오류 발생 
+
+### 2. Type error: Type 'OmitWithTag<typeof ...>' does not satisfy the constraint '{ [x: string]: never; }'.
+한 컴포넌트 안에 여러 개의 컴포넌트가 존재할 수 있다. `App Router`에서 `export`는 `하나의 컴포넌트만` 할 수 있다. `Page Router`는 `export` 다중 선언 가능하다.
+
+*개발자 모드일 때는 작동하지만 npm run build 할 때 오류 발생한다.*
+
+```TypeScript
+// page.tsx - App Router
+
+export const Content = () => { // Error, build 오류 - export 제거
+  return <p>This is the content</p>;
+};
+
+export default function Page() {
+  return <Content />;
+}
+```
+
+### 3. Warning: async/await is not yet supported in Client Components, only Server Components.
+`'use client'` 선언한 컴포넌트가 `'use server'` 선언한 컴포넌트를 포함하면 빌드할 때 오류가 발생한다. 반대는 가능하다.
+
+```
+X
+<Page />
+ㄴ <BookReviewForm />     'use client'
+    ㄴ <BookReviewList /> 'use server'
+
+O
+<Page />
+ㄴ <BookReviewForm /> 'use client'
+ㄴ <BookReviewList /> 'use server'
+```
+

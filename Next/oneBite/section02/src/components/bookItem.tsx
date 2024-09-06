@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import style from '@/components/bookItem.module.css';
-import { Book } from '@/type/Book';
+import { Book } from '@/type/type';
 
 export default function BookItem(children: Book) {
   const { id, title, subTitle, description, author, publisher, coverImgUrl } = children;

@@ -1,4 +1,4 @@
-import { Book } from '@/type/Book';
+import { Book } from '@/type/type';
 
 export default async function fetchBooks(q?: string): Promise<Book[]> {
   let url = `${process.env.NEXT_PUBLIC_API_SERVER_URI}/book`;

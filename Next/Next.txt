@@ -106,10 +106,6 @@ Page Router
 			On-Demand-ISR
 			: 요청 받을 때마다 ISR 작동, res.revalidate(주소)
 
-에러처리 
-	1. 'key' is specified more than once, so this usage will be overwritten.
-	: 컴포넌트 key와 타입 key 충돌, 타입 안에 key 라는 타입이 있다면 오류 발생 
-
 App Router
 폴더의 구조 기반으로 앱 라우팅 제공
 page, layout 외 파일명은 ts, js 같은 확장자 형식으로 인식
@@ -170,7 +166,6 @@ page, layout 외 파일명은 ts, js 같은 확장자 형식으로 인식
 	Request Memoization
 	: 한 페이지에서 fetch 데이터 동일한지 비교, 중복 fetch가 있다면 하나의 fetch만 작동
 
----------------------------------
 Caching 
 	풀 라우트 캐시(서버)
 	동적함수가 없고 캐시만 사용하는 정적 페이지
@@ -231,3 +226,85 @@ Error Handling
 
 	React.startTransition()
 	: 우선순위 낮은 작업으로 변환, 내부 비동기 작업은 우선순위에 맞춰 실행됨
+
+---------------------------------
+
+서버 액션
+	"use server"
+	클라이언트가 아닌 서버에서 동작하도록 선언
+	
+	```
+	async function createReview(formData: FormData) {
+		'use server'; // 서버에서 작동
+	}
+	```
+	```
+	export function BookReviewForm() {
+		
+		return (
+			<form action={createReview}>
+			... // form 제출 데이터 서버(createReview)로 전달
+			</form>
+		);
+	}
+	```
+	
+	ISR
+	페이지 재검사, 데이터는 갱신, 풀 라우트 캐시 purge(초기화)
+
+		- revalidatePath()
+		지정한 주소로 재검사, 전체 캐시 지워지고 새로운 데이터 가져옴
+			- router.refresh() 차이점
+			: client-api, 캐시 무효화 X, 데이터 갱신 X
+
+		- revalidateTag()
+		fetch 인자 선언, 개별 지정 가능, 태그 실행 시 해당 캐시 재검사
+
+	React.useActionState()
+	Form 액션 결과 상태 추적 함수, 2024년 v19 적용
+	```
+	const [state, formAction, isPending] = useActionState(createReview, null);
+	```
+	state: 폼 액션 함수 반환 값 // object
+	formAction: 폼 액션 함수 // function
+	isPending: 폼 액션 실행 여부 // boolean
+
+
+
+에러해결
+	1. 'key' is specified more than once, so this usage will be overwritten.
+	: 컴포넌트 key와 타입 key 충돌, 타입 안에 key 라는 타입이 있다면 오류 발생 
+
+	2. Type error: Type 'OmitWithTag<typeof import("/src/app/book/[id]/page"), "default" | "metadata" | "generateStaticParams" | "config" | ... 10 more ... | "experimental_ppr", "">' does not satisfy the constraint '{ [x: string]: never; }'.
+  Property 'BookElement' is incompatible with index signature.
+    Type '({ book }: { book: Book; }) => Element' is not assignable to type 'never'.
+
+	: App Router에서 한 컴포넌트 안에 여러 개의 컴포넌트가 존재할 수 있지만 export는 하나의 컴포넌트만 할 수 있다. 
+
+	```
+	const Content = () => { // export const Content 선언 시 build 오류
+	  return <p>This is the content</p>;
+	};
+
+	// 페이지 컴포넌트 정의 및 기본 내보내기
+	export default function Page() {
+	  return (
+	    <>
+	      <Content />
+	    </>
+	  );
+	}
+	```
+
+	3. app-index.tsx:30  Warning: async/await is not yet supported in Client Components, only Server Components. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server.
+	: 'use client' 선언한 컴포넌트에서 'use server' 선언한 컴포넌트가 있으면 안 된다. 
+	```
+	Page
+	ㄴ BookReviewForm // 'use client'
+			ㄴ BookReviewList // 'use server'
+
+	Page
+	ㄴ BookReviewForm // 'use client'
+	ㄴ BookReviewList // 'use server'
+	```
+

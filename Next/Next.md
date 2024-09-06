@@ -411,7 +411,8 @@
   ### `revalidatePath()`
   지정한 주소로 재검사, 전체 캐시 지워지고 새로운 데이터 가져옴   
     - `router.refresh()` 차이점   
-			: `server`가 아닌 `client-api`, 캐시 무효화 X, 데이터 갱신 X
+
+      : `server`가 아닌 `client-api`, 캐시 무효화 X, 데이터 갱신 X
   
   ```TypeScript
   revalidatePath(`/book/${bookId}`);
@@ -438,7 +439,9 @@
 	const [state, formAction, isPending] = useActionState(createReview, null);
 	```
 	`state`: 폼 액션 함수 반환 값 >> `object`   
+
 	`formAction`: 폼 액션 자체 함수 >> `function`    
+
 	`isPending`: 폼 액션 실행 여부 >> `boolean`   
 
 
@@ -446,7 +449,7 @@
 
 ## 에러해결
 ### 1. 'key' is specified more than once, so this usage will be overwritten.
-`컴포넌트 key`와 `타입 key` 충돌, 타입 안에 `key` 라는 `타입명`이 있다면 오류 발생 
+`컴포넌트 key`와 `타입 key` 충돌, 타입 안에 `key` 라는 `타입명` 있다면 오류 발생 
 
 ### 2. Type error: Type 'OmitWithTag<typeof ...>' does not satisfy the constraint '{ [x: string]: never; }'.
 한 컴포넌트 안에 여러 개의 컴포넌트가 존재할 수 있다. `App Router`에서 `export`는 `하나의 컴포넌트만` 할 수 있다. `Page Router`는 `export` 다중 선언 가능하다.

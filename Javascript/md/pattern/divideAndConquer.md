@@ -65,4 +65,4 @@ function binarySearch(arr, num) {
 
 
 ## 코드
-[알고리즘 코드 - max_sum.js](../algorithm/03max_sum.js)
+[알고리즘 코드 - max_sum.js](../../algorithm/03max_sum.js)

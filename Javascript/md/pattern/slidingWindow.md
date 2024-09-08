@@ -91,4 +91,4 @@ function getMaxSum(arr, number) {
   : 배열 요소 하나씩 순회, 문제해결 가능하지만 시간복잡도가 좋지 않다. `O(n^2)`
 
 ## 코드
-[알고리즘 코드 - max_sum.js](../algorithm/03max_sum.js)
+[알고리즘 코드 - max_sum.js](../../algorithm/03max_sum.js)

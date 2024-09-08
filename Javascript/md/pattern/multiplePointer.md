@@ -73,4 +73,4 @@ function countUniqueValues(arr) {
   `j`변수를 `for`문으로 바꿈으로써 자동으로 `j` 값이 증가하고 불필요한 코드를 줄였다. 멀티 포인터는 반복문 중첩보다 두 개의 인덱스 변수 값으로 문제를 해결하는 것이 중점이다. 변수 개수를 두 개에서 하나로 줄일 수 있다면 전보다 깔끔한 코드가 된다.  
 
 ## 코드
-[알고리즘 코드 - multiplePointer.js](../algorithm/02multiplePointer.js)
+[알고리즘 코드 - multiplePointer.js](../../algorithm/02multiplePointer.js)

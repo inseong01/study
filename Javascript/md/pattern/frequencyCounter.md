@@ -122,4 +122,4 @@ function anagrams(str1, str2) {
   조건문 안에 매서드를 적용을 했다. 다행히 `O(n^2)`은 아니고 `O(n + k^2)`이었다. 고유 문자 비교를 하면 `n^2` 아닌 `n+k^2`이었다. 상수항을 무시하는 특징으로 `O(n)`으로 통과했다. 
 
 ## 코드
-[알고리즘 코드 - Anagrams.js](../algorithm/01anagrams.js)
+[알고리즘 코드 - Anagrams.js](../../algorithm/01anagrams.js)

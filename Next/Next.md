@@ -443,8 +443,135 @@
 	`formAction`: 폼 액션 자체 함수 >> `function`    
 
 	`isPending`: 폼 액션 실행 여부 >> `boolean`   
+  </details>
 
+  <details>
+  <summary>Parallel Routes</summary>
 
+  병렬 라우트
+  --
+  조건부 또는 동시에 여러 페이지를 한 레이아웃에서 렌더링 할 수 있다.     
+
+  대쉬보드나 피드, 모달 같은 동적 섹션에 적합하다.
+  병렬로 렌더링 된다.
+
+  - 폴더 구조
+
+      ```
+      app
+        ㄴ @user
+            ㄴ page.tsx
+            ㄴ info
+                ㄴ page.tsx
+        ㄴ @team
+            ㄴ page.tsx
+        ㄴ page.tsx
+        ㄴ layout.tsx
+      ```
+      부모 `layout`에서 `slots`을 인자로 받을 수 있다. `slots`은 `@` 시작하는 폴더명들이다.
+
+      `/@user/info` 가 아닌 `/info` 주소로 접근할 수 있다. 그러나 직접 경로로 접근하면 `404` 페이지로 이동한다. `layout`에서 페이지를 생성하는 과정을 생략하기 때문이다.    
+      
+      `@team`, `app` 폴더에 `default` 페이지를 만들어 두면 이미 생성한 `default` 화면을 보여줌으로써 접근 가능하다. `default` 페이지를 생성해야 원활하게 작동하는 경우가 있다. 
+
+  - 개선된 폴더 구조
+      ```
+      app
+        ㄴ @user
+            ㄴ page.tsx
+            ㄴ info
+                ㄴ page.tsx
+        ㄴ @team
+            ㄴ page.tsx
+            ㄴ default.tsx
+        ㄴ page.tsx
+        ㄴ layout.tsx
+        ㄴ default.tsx
+      ```
+  </details>
+
+  <details>
+  <summary>Intercepting Routing</summary>
+
+  라우트 가로채기
+  --
+  초기접속이 아닐 때(`Link`, `Push`, `Route` 이동 시) 다른 페이지 컴포넌트로 렌더링 된다.   
+
+  폴더 구조로 `modal` 페이지를 구현할 수 있다. 새로고침(초기접속) 하면 원래 페이지 컴포넌트로 렌더링 된다.  
+
+  ### 폴더 구조
+  ```
+  app
+    ㄴ (.)book/[id]
+          ㄴ page.tsx
+    ㄴ book/[id]
+          ㄴ page.tsx
+  ```
+  동일한 폴더명 앞에 선언한 폴더 위치 기준으로 `(.)` 붙이면 가로챌 페이지 폴더를 지정할 수 있다.    
+
+  ### 폴더 위치에 따른 명명   
+  ```  
+  가로챌 페이지 폴더가 
+
+  (.): 동위 폴더에 있다면
+  (..): 상위 폴더에 있다면
+  (..)(..): 2단계 상위 폴더 위치
+  (...): 루트 폴더에 있다면
+  ```  
+  </details>
+
+  <details>
+  <summary>Image optimization</summary>
+  
+  `<img>` 최적화
+  --
+  `Next`에서 제공하는 `Image` 컴포넌트로 이미지를 최적화 할 수 있다.    
+
+  `src`, `width`, `height를` 설정해주어야 한다. (`width`, `height` 없다면 `fill` 설정)    
+
+  ### Remote Image    
+
+  외부에서 이미지를 가져온다면 `next.config.mjs`에서 `remotePatterns`을 설정해야 한다.
+  ```
+  const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          hostname: 'shopping-phinf.pstatic.net',
+        },
+      ],
+    },
+  };
+  ```
+  </details>
+
+  <details>
+  <summary>Metadata</summary>
+
+  메타데이터 생성
+  --
+	`Next`에서 `Metadata` 인터페이스를 지원한다. 서버 컴포넌트에서만 사용할 수 있다. `layout` 또는 `page`에서 객체/함수를 내보내면 된다.
+
+	### `The object`
+	정적 메타데이터를 정의
+	```
+	export const metadata: Metadata = {
+		title: '...',
+		description: '...',
+	}
+	```
+
+	### `generateMetadata()`
+	동적 메타데이터를 정의, 파라미터로 `props`를 받을 수 있다.
+	```
+	export async function generateMetadata({ params }) {
+		return {
+			title: '...',
+		}
+	}		
+	```
+
+	*`props`: `params`, `searchParams`*
   </details>
 
 ## 에러해결
@@ -483,3 +610,11 @@ O
 ㄴ <BookReviewList /> 'use server'
 ```
 
+### 4. Skipping auto-scroll behavior
+`position: sticky` 또는 `position: fixed` 스타일이 적용된 요소에서 자동 스크롤 동작이 생략되었기 때문에 발생한다. 해당 태그를 `scroll={false}` 하면 오류가 해결 된다고 하지만
+그렇지 않았다.    
+
+오히려 문제였던 태그를 `div`로 감싸주면 자동 스크롤이 설정돼서 해결되었다. `stack Overflow`는 신이다.
+
+### 5. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+`css` 설정이 아닌 `Next`가 제공하는 `<Image />` 컴포넌트에서 내장 스타일 `width`, `height`를 `auto`로 지정하면 해결된다. 다만 이미지를 불러온 이후에 크기가 무너지는 경우가 있다.

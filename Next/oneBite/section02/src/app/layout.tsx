@@ -1,6 +1,7 @@
 import './globals.css';
 import Link from 'next/link';
 import style from '@/app/layout.module.css';
+import { ReactNode } from 'react';
 
 async function Footer() {
   return (
@@ -10,11 +11,7 @@ async function Footer() {
   );
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout(props: { children: ReactNode; modal: ReactNode }) {
   return (
     <html lang="en">
       <body>
@@ -22,9 +19,11 @@ export default function RootLayout({
           <header className={style.header}>
             <Link href={'/'}>📚 OneBite Books</Link>
           </header>
-          <div className={style.main}>{children}</div>
+          <div className={style.main}>{props.children}</div>
           {<Footer />}
         </div>
+        {props.modal}
+        <div id="modal-root"></div>
       </body>
     </html>
   );

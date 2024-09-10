@@ -1,10 +1,10 @@
 // npm socket.io-client
 import { io } from 'socket.io-client';
 
-const URL = 'http://localhost:3000/';
+const URL = process.env.REACT_APP_URL;
 
 export const socket = io(URL, {
-  origin: 'http://localhost:5173',
+  origin: process.env.REACT_APP_ORIGIN_URL,
   autoConnect: true,
   path: '/socket.io',
 });

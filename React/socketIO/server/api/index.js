@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
+import { formData } from '../formData.js';
 
 const app = express();
 const server = createServer(app);
@@ -8,7 +9,7 @@ const server = createServer(app);
 const io = new Server(server, {
   // 클라이언트와 서버가 서로 프로토콜, 호스트, 포트가 다르다면 CROS 발생
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.ORIGIN_URL,
     methods: ["GET", "POST"]
   }
 });
@@ -29,6 +30,9 @@ io.on('connection', (socket) => {
   socket.on('join', async (id, room) => {
     await socket.join(room);
     io.to(room).emit(`foo`, { id: 'io', msg: `${room}번 방에 입장하셨습니다.` });
+
+    // 응답 메시지와 formData 전달 (id 상대방으로 설정, 서버 X)
+    io.to(room).emit(`foo`, { id: 'other', msg: `Hi. This is a room ${room}`, formData });
 
     const sids = await socket.adapter.sids.get(id);
     // 소켓은 json 전달 불가능
@@ -53,4 +57,6 @@ io.on('disconnect', () => {
   });
 })
 
-server.listen(3000, () => console.log('3000 is opened'));
+server.listen(3001, () => console.log('http://localhost:3001 is opened'));
+
+export default app;

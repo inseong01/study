@@ -27,10 +27,10 @@ function Chat() {
       setIsConnected(false);
     }
     function onFooEvent(value) {
+      // 서버 데이터 받는 곳
       setFooEvents((perv) => [...perv, value]);
     }
     function onUserEvent(value) {
-      console.log('value', value);
       setUserInfo(value);
     }
 

@@ -521,7 +521,7 @@
   </details>
 
   <details>
-  <summary>Image optimization</summary>
+  <summary>Image Optimization</summary>
   
   `<img>` 최적화
   --

@@ -3,6 +3,7 @@ import './event.css';
 
 import { socket } from '../socket';
 import { useEffect, useRef } from 'react';
+import FormData from './FormData';
 
 function Events({ events }) {
   const msgRef = useRef(null);
@@ -28,7 +29,10 @@ function Events({ events }) {
 
         return (
           <div className={`msg ${idClassName}`} key={idx}>
-            <div className="content">{event.msg}</div>
+            <div className="content">
+              {event.formData && <FormData data={event.formData} />}
+              {event.msg}
+            </div>
           </div>
         );
       })}

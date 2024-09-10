@@ -33,3 +33,13 @@
   background-color: #f8f9fa;
   color: #222;
 }
+
+/* formData */
+.form {
+  margin: 10px 0;
+}
+
+.formData {
+  display: flex;
+  flex-direction: column;
+}

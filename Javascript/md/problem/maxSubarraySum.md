@@ -1,5 +1,5 @@
 maxSubarraySum
-# 알고리즘 문제 : maxSubarraySum
+# 알고리즘 문제 : MaxSubarraySum
 
 ### 1. 문제 이해하기
 하나의 배열, 하나의 숫자를 받고 숫자 만큼의 배열 요소를 더해 가장 큰 합을 반환

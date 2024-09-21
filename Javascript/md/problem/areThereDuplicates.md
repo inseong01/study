@@ -1,4 +1,4 @@
-# 알고리즘 문제 : areThereDuplicates
+# 알고리즘 문제 : AreThereDuplicates
 
 ### 1. 문제 이해하기
 주어진 인수에 중복 수가 있는 지 참/거짓 반환

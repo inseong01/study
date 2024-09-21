@@ -24,6 +24,8 @@
   [알고리즘 문제 : averagePair](./md/problem/averagePair.md)    
   [알고리즘 문제 : isSubsequence](./md/problem/isSubsequence.md)    
   [알고리즘 문제 : maxSubarraySum](./md/problem/maxSubarraySum.md)    
+  [알고리즘 문제 : minSubArrayLen](./md/problem/minSubArrayLen.md)    
+  [알고리즘 문제 : findLongestSubstring](./md/problem/findLongestSubstring.md)    
   </details>
 
 <!-- ## 블로그

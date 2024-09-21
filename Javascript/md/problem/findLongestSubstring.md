@@ -108,4 +108,4 @@ function findLongestSubstring(str) {
 이런 생각을 어떻게 하는 지..
 
 ## 코드
-[알고리즘 코드 - findLongestSubstring.js](../../algorithm/problem/(re)findLongestSubstring.js.js)
+[알고리즘 코드 - findLongestSubstring.js](../../algorithm/problem/(re)findLongestSubstring.js)

@@ -152,8 +152,8 @@ function fib2(num) {
 생각한 규칙은 맞았어도 `num` 인자를 어떻게 활용해야 할지 몰랐던 점이 아쉽다.
 
 ## 코드
-[알고리즘 코드 - power.js](../../algorithm/problem/recursion/power.js)    
-[알고리즘 코드 - factorial.js](../../algorithm/problem/recursion/factorial.js)    
-[알고리즘 코드 - productOfArray.js](../../algorithm/problem/recursion/productOfArray.js)    
-[알고리즘 코드 - recursiveRange.js](../../algorithm/problem/recursion/recursiveRange.js)    
-[알고리즘 코드 - fib.js](../../algorithm/problem/recursion/fib.js)    
+[알고리즘 코드 - power.js](../../../algorithm/problem/recursion/power.js)    
+[알고리즘 코드 - factorial.js](../../../algorithm/problem/recursion/factorial.js)    
+[알고리즘 코드 - productOfArray.js](../../../algorithm/problem/recursion/productOfArray.js)    
+[알고리즘 코드 - recursiveRange.js](../../../algorithm/problem/recursion/recursiveRange.js)    
+[알고리즘 코드 - fib.js](../../../algorithm/problem/recursion/fib.js)    

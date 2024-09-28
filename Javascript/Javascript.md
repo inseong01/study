@@ -26,7 +26,12 @@
   [알고리즘 문제 : maxSubarraySum](./md/problem/maxSubarraySum.md)    
   [알고리즘 문제 : minSubArrayLen](./md/problem/minSubArrayLen.md)    
   [알고리즘 문제 : findLongestSubstring](./md/problem/findLongestSubstring.md)    
-  [알고리즘 문제 : recursion](./md/problem/recursion.md)    
+
+  [알고리즘 문제 : recursion](./md/problem/recursion/recursion.md)    
+  [알고리즘 문제 : reverse](./md/problem/recursion/reverse.md)    
+  [알고리즘 문제 : isPalindrome](./md/problem/recursion/isPalindrome.md)    
+  [알고리즘 문제 : someRecursive](./md/problem/recursion/someRecursive.md)    
+  [알고리즘 문제 : flatten](./md/problem/recursion/flatten.md)    
   </details>
 
 <!-- ## 블로그

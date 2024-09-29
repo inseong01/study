@@ -32,6 +32,11 @@
   [알고리즘 문제 : isPalindrome](./md/problem/recursion/isPalindrome.md)    
   [알고리즘 문제 : someRecursive](./md/problem/recursion/someRecursive.md)    
   [알고리즘 문제 : flatten](./md/problem/recursion/flatten.md)    
+  [알고리즘 문제 : capitalizeFirst](./md/problem/recursion/capitalizeFirst.md)    
+  [알고리즘 문제 : nestedEvenSum](./md/problem/recursion/nestedEvenSum.md)    
+  [알고리즘 문제 : capitalizeWords](./md/problem/recursion/capitalizeWords.md)    
+  [알고리즘 문제 : stringifyNumbers](./md/problem/recursion/stringifyNumbers.md)    
+  [알고리즘 문제 : collectStrings](./md/problem/recursion/collectStrings.md)    
   </details>
 
 <!-- ## 블로그

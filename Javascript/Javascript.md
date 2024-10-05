@@ -37,6 +37,8 @@
   [알고리즘 문제 : capitalizeWords](./md/problem/recursion/capitalizeWords.md)    
   [알고리즘 문제 : stringifyNumbers](./md/problem/recursion/stringifyNumbers.md)    
   [알고리즘 문제 : collectStrings](./md/problem/recursion/collectStrings.md)    
+
+  [알고리즘 문제 : searchAlgorithm](./md/problem/searchAlgorithm.md)    
   </details>
 
 <!-- ## 블로그

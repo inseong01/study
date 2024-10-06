@@ -1,4 +1,4 @@
-# 알고리즘 문제 : maxSum - 슬라이딩 윈도우
+# 알고리즘 패턴 : maxSum - 슬라이딩 윈도우
 Algorithm Problem : maxSum - Sliding Window Pattern
 
 ### 1. 문제 이해하기

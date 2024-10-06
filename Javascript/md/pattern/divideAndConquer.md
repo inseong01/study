@@ -1,4 +1,4 @@
-# 알고리즘 문제 : binarySearch - 분할과 정복
+# 알고리즘 패턴 : binarySearch - 분할과 정복
 Algorithm Problem : binarySearch - Divide And Conquer
 
 ### 1. 문제 이해하기

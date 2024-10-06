@@ -14,6 +14,10 @@
   [알고리즘 패턴 : 다중 포인터 패턴 - countUniqueValues](./md/pattern/multiplePointer.md)    
   [알고리즘 패턴 : 슬라이딩 윈도우 - maxSum](./md/pattern/slidingWindow.md)    
   [알고리즘 패턴 : 분할과 정복 - binarySearch](./md/pattern/divideAndConquer.md)    
+
+  [알고리즘 패턴 : 정렬 - bubblesort](./md/pattern/sort/bubblesort.md)    
+  [알고리즘 패턴 : 정렬 - selectionSort](./md/pattern/sort/selectionsort.md)    
+  [알고리즘 패턴 : 정렬 - insertionsort](./md/pattern/sort/insertionsort.md)    
   </details>
 
   <details>

@@ -1,4 +1,4 @@
-# 알고리즘 문제 : Anagrams - 빈도수 세기 패턴
+# 알고리즘 패턴 : Anagrams - 빈도수 세기 패턴
 Algorithm Problem : Anagrams - Frequency Counter Pattern
 
 ### 1. 문제 이해하기

@@ -1,4 +1,4 @@
-# 알고리즘 문제 :countUniqueValues - 다중 포인터 패턴
+# 알고리즘 패턴 :countUniqueValues - 다중 포인터 패턴
 Algorithm Problem : countUniqueValues - Mutiple Pointers Pattern
 
 ### 1. 문제 이해하기

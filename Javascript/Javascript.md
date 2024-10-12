@@ -18,6 +18,7 @@
   [알고리즘 패턴 : 정렬 - bubblesort](./md/pattern/sort/bubblesort.md)    
   [알고리즘 패턴 : 정렬 - selectionSort](./md/pattern/sort/selectionsort.md)    
   [알고리즘 패턴 : 정렬 - insertionsort](./md/pattern/sort/insertionsort.md)    
+  [알고리즘 패턴 : 정렬 - mergeSort](./md/pattern/sort/mergeSort.md)    
   </details>
 
   <details>

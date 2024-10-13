@@ -19,6 +19,8 @@
   [알고리즘 패턴 : 정렬 - selectionSort](./md/pattern/sort/selectionsort.md)    
   [알고리즘 패턴 : 정렬 - insertionsort](./md/pattern/sort/insertionsort.md)    
   [알고리즘 패턴 : 정렬 - mergeSort](./md/pattern/sort/mergeSort.md)    
+  [알고리즘 패턴 : 정렬 - quickSort](./md/pattern/sort/quickSort.md)    
+  [알고리즘 패턴 : 정렬 - radixSort](./md/pattern/sort/radixSort.md)    
   </details>
 
   <details>
